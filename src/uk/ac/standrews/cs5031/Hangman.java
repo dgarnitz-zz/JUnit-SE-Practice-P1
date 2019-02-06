@@ -4,18 +4,20 @@ import java.util.Scanner;
 
 public class Hangman {
 
+	private static Scanner scan;
+	private static GameState game;
+	private static CommandOpts opts;
+
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		GameState g = null;
-		CommandOpts opts;
+		scan = new Scanner(System.in);
 
 		opts = new CommandOpts(args);
 
-		initiateGame(sc, opts, g);
+		initiateGame();
 
 	}
 
-	static void initiateGame(Scanner sc, CommandOpts opts, GameState g) {
+	static void initiateGame() {
 
 		if (opts.wordsource == "") {
 
@@ -25,37 +27,37 @@ public class Hangman {
 
 			System.out.print("Pick a category:");
 
-			g = new GameState(Words.randomWord(sc.nextInt()), opts.maxguesses, opts.maxhints);
+			game = new GameState(Words.randomWord(scan.nextInt()), opts.maxguesses, opts.maxhints);
 		} else {
-			g = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
+			game = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
 		}
 
-		playGame(g);
+		playGame();
 
-		concludeGame(g);
+		concludeGame();
 	}
 
-	static void playGame(GameState g) {
+	static void playGame() {
 		boolean correct;
 
-		while (!g.won() && !g.lost()) {
-			g.showWord(g.word);
+		while (!game.won() && !game.lost()) {
+			game.showWord(game.word);
 
-			System.out.println("Guesses remaining: " + g.wrong);
+			System.out.println("Guesses remaining: " + game.wrong);
 
-			correct = g.guessLetter();
+			correct = game.guessLetter();
 
 			if (correct) System.out.println("Good guess!");
 			if (!correct) System.out.println("Wrong guess!");
 		}
 	}
 
-	static void concludeGame(GameState g) {
-		if (g.won()) {
+	static void concludeGame() {
+		if (game.won()) {
 			System.out.println("Well done!");
-			System.out.println("You took " + g.g + " guesses");
+			System.out.println("You took " + game.g + " guesses");
 		} else {
-			System.out.println("You lost! The word was " + g.word);
+			System.out.println("You lost! The word was " + game.word);
 		}
 	}
 }
