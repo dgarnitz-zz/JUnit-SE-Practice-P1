@@ -4,10 +4,11 @@ public class CommandOpts {
 
 	public int maxguesses;
 	public int maxhints;
+
+	public String wordsource;
 	
-	String wordsource;
-	
-	CommandOpts(String[] args) {
+	//TODO write a test(s) for this constructor method - it should make sure maxguesses = 10 and maxhints = 2
+	public CommandOpts(String[] args) {
 		maxguesses = 10;
 		maxhints = 2;
 		

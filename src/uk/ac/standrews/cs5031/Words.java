@@ -3,6 +3,7 @@ package uk.ac.standrews.cs5031;
 import java.io.*;
 import java.util.ArrayList;
 
+//TODO Analyze this class to see what should be refactored
 public class Words {
 
 	static String[] words1 = { "Argyll and Bute", "Caithness",  "Kingdom of Fife",
