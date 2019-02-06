@@ -8,7 +8,7 @@ public class CommandOptsTest {
 
 	@Test
 	public void optionsTest() {
-		String[] args = { "--guesses", "2", "--hints", "4", "words.txt" };
+		String[] args = { "--guessesMade", "2", "--hints", "4", "words.txt" };
 		CommandOpts opts = new CommandOpts(args);
 		assertEquals(opts.maxguesses, 2);
 		assertEquals(opts.maxhints, 4);

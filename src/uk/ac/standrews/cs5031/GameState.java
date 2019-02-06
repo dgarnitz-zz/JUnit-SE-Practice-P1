@@ -3,44 +3,46 @@ package uk.ac.standrews.cs5031;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//TODO Clean up ugly comments
+
 // The game state
 public class GameState {
 	public String word; // letters
-	public int g;
-	public int wrong;
-	public int h;
+	public int guessesMade;
+	public int remainingGuesses;
+	public int hintsLeft;
 	
-	ArrayList<Character> got;
-	ArrayList<Character> not;
+	ArrayList<Character> lettersSuccessfullyGuessed;
+	ArrayList<Character> lettersNotGuessedYet;
 	
 	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
 	
-	public GameState(String target, int g, int h) {
+	public GameState(String target, int guessesMade, int hintsLeft) {
 		this.word = target;
-		not = new ArrayList<Character>();
-		   got = new ArrayList<Character>();
+		lettersNotGuessedYet = new ArrayList<Character>();
+		lettersSuccessfullyGuessed = new ArrayList<Character>();
 		
 		for(int i = 0; i < target.length(); ++i) {
-			if (!not.contains(Character.toLowerCase(target.charAt(i))))
-			not.add(Character.toLowerCase(target.charAt(i)));
+			if (!lettersNotGuessedYet.contains(Character.toLowerCase(target.charAt(i))))
+			lettersNotGuessedYet.add(Character.toLowerCase(target.charAt(i)));
 		}
 		//System.out.println(missing);
 		
-		this.g = 0; // guesses made
-		wrong = g; // guesses remaining
-		this.h = h;
+		this.guessesMade = 0; // guessesMade made
+		remainingGuesses = guessesMade; // guessesMade remaining
+		this.hintsLeft = hintsLeft;
 	}
 	
 	void showWord(String word) {
 		for (int i = 0; i < word.length(); ++i) {
-			if (got.contains(word.charAt(i))) {
+			if (lettersSuccessfullyGuessed.contains(word.charAt(i))) {
 				System.out.print(word.charAt(i));
 			} else {
 				System.out.print("-");
 			}
 		}
 		System.out.println("");
-		// System.out.println(missing);
+		// System.out.println(missing); TODO figure out what this does - it appears several times
 	}
 	
 	boolean guessLetter() {
@@ -52,8 +54,8 @@ public class GameState {
 		String str = sc.next().toLowerCase();
 		
 		if (str.length() > 1) {
-			if (str==word) {
-				not.clear();
+			if (str == word) {
+				lettersNotGuessedYet.clear(); //TODO this is confusing, why is it necessary to remove all the items from the list
 				return true;
 			} else return false;
 		}
@@ -65,34 +67,34 @@ public class GameState {
 			return false;
 		}
 		
-		for(i = 0; i < not.size(); ++i) { // Loop over the not got
-			if (not.get(i) == letter) {
-				not.remove(i);
-				got.add(letter);
-				g++;
+		for(i = 0; i < lettersNotGuessedYet.size(); ++i) { // Loop over the lettersNotGuessedYet lettersSuccessfullyGuessed
+			if (lettersNotGuessedYet.get(i) == letter) {
+				lettersNotGuessedYet.remove(i);
+				lettersSuccessfullyGuessed.add(letter);
+				guessesMade++;
 				return true;
 			}
 		}
 
-		g++; // One more guess
-		wrong--;
+		guessesMade++; // One more guess
+		remainingGuesses--;
 		return false;
 	}
 	
 	boolean won() {
-		if (not.size() == 0) return true; else return false;
+		if (lettersNotGuessedYet.size() == 0) return true; else return false;
 	}
 
 	boolean lost() {
-		if (not.size() > 0 && wrong == 0) return true; else return false;
+		if (lettersNotGuessedYet.size() > 0 && remainingGuesses == 0) return true; else return false;
 	}
 
 	void hint() {
-		if (h == 0) {
+		if (hintsLeft == 0) {
 			System.out.println("No more hints allowed");
 		}
 		
 		System.out.print("Try: ");
-		System.out.println(not.get((int)(Math.random()*not.size())));
+		System.out.println(lettersNotGuessedYet.get((int)(Math.random()* lettersNotGuessedYet.size())));
 	}
 }

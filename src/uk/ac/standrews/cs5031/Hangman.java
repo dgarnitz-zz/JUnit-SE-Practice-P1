@@ -15,6 +15,9 @@ public class Hangman {
 
 		initiateGame();
 
+		playGame();
+
+		concludeGame();
 	}
 
 	static void initiateGame() {
@@ -31,10 +34,6 @@ public class Hangman {
 		} else {
 			game = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
 		}
-
-		playGame();
-
-		concludeGame();
 	}
 
 	static void playGame() {
@@ -43,7 +42,7 @@ public class Hangman {
 		while (!game.won() && !game.lost()) {
 			game.showWord(game.word);
 
-			System.out.println("Guesses remaining: " + game.wrong);
+			System.out.println("Guesses remaining: " + game.remainingGuesses);
 
 			correct = game.guessLetter();
 
@@ -55,7 +54,7 @@ public class Hangman {
 	static void concludeGame() {
 		if (game.won()) {
 			System.out.println("Well done!");
-			System.out.println("You took " + game.g + " guesses");
+			System.out.println("You took " + game.guessesMade + " guessesMade");
 		} else {
 			System.out.println("You lost! The word was " + game.word);
 		}
