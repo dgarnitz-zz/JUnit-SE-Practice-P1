@@ -33,7 +33,7 @@ public class GameState {
 		this.hintsLeft = hintsLeft;
 	}
 	
-	void showWord(String word) {
+	void showWord(String word) { //TODO write a test for this
 		for (int i = 0; i < word.length(); ++i) {
 			if (lettersSuccessfullyGuessed.contains(word.charAt(i))) {
 				System.out.print(word.charAt(i));
@@ -45,7 +45,7 @@ public class GameState {
 		// System.out.println(missing); TODO figure out what this does - it appears several times
 	}
 	
-	boolean guessLetter() {
+	boolean guessLetter() { //TODO break this function down into several smaller functions
 		int i;
 		char letter;
 		
@@ -81,15 +81,15 @@ public class GameState {
 		return false;
 	}
 	
-	boolean won() {
+	boolean won() { //TODO write a test for this
 		if (lettersNotGuessedYet.size() == 0) return true; else return false;
 	}
 
-	boolean lost() {
+	boolean lost() { //TODO write a test for this
 		if (lettersNotGuessedYet.size() > 0 && remainingGuesses == 0) return true; else return false;
 	}
 
-	void hint() {
+	void hint() { //TODO write a test for this
 		if (hintsLeft == 0) {
 			System.out.println("No more hints allowed");
 		}
