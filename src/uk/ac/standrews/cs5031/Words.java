@@ -18,30 +18,37 @@ public class Words {
 	static ArrayList<String> customwords;
 	
 	public static String randomWord(int category) {
-		if (category == 1)
-			return words1[(int)(Math.random()*9)];
-		if (category == 2)
-			return words2[(int)(Math.random()*15)];
-		return words3[(int)(Math.random()*10)];
+		if (category == 1) {
+			return words1[(int) (Math.random() * 9)];
+		}
+		if (category == 2) {
+			return words2[(int) (Math.random() * 15)];
+		}
+		else {
+			return words3[(int)(Math.random()*10)];
+		}
 	}
 	
 	public static String randomWord(String wordsource) {
-		String line;
 		customwords = new ArrayList<String>();
-		
+		return attemptToReadInWords(wordsource);
+	}
+
+	private static String attemptToReadInWords(String wordsource) {
 		try {
 			FileReader file = new FileReader(wordsource);
 			BufferedReader reader = new BufferedReader(file);
+			String line;
 			while((line = reader.readLine()) != null) {
-                customwords.add(line);
-            }
+				customwords.add(line);
+			}
 			return customwords.get((int)(Math.random()*customwords.size()));
 		} catch(FileNotFoundException e) {
 			System.out.println("File error");
 			return "";
 		} catch(IOException e) {
-		System.out.println("IO error");
-		return "";
-	}
+			System.out.println("IO error");
+			return "";
+		}
 	}
 }
