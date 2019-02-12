@@ -1,4 +1,4 @@
-package uk.ac.standrews.cs5031;
+package cs5031;
 
 import java.util.Scanner;
 
