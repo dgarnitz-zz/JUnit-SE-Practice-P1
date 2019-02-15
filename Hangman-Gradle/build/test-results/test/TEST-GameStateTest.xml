@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="GameStateTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2019-02-12T13:19:31" hostname="pc2-096-l" time="0.001">
+<testsuite name="GameStateTest" tests="2" skipped="0" failures="1" errors="0" timestamp="2019-02-15T14:52:20" hostname="pc5-035-l" time="0.01">
   <properties/>
+  <testcase name="showWord" classname="GameStateTest" time="0.009"/>
   <testcase name="test" classname="GameStateTest" time="0.001">
     <failure message="java.lang.AssertionError: Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
 	at org.junit.Assert.fail(Assert.java:88)
-	at GameStateTest.test(GameStateTest.java:11)
+	at GameStateTest.test(GameStateTest.java:19)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
