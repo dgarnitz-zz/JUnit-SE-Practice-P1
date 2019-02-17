@@ -26,14 +26,19 @@ public class GameState {
 			if (!lettersNotGuessedYet.contains(Character.toLowerCase(target.charAt(i))))
 			lettersNotGuessedYet.add(Character.toLowerCase(target.charAt(i)));
 		}
-		//System.out.println(missing);
+		//System.out.println(missing); //TODO What is this?
 		
 		this.guessesMade = 0; // guessesMade made
 		remainingGuesses = guessesMade; // guessesMade remaining
 		this.hintsLeft = hintsLeft;
 	}
-	
-	void showWord(String word) { //TODO write a test for this
+
+    /**
+     * This function prints the game board in its current state to the console. It prints any letters already
+	 * successfully guessed by the user. A dash is printed in place of any letter not yet guess by the user.
+     * @param word a string containing the word the user is trying to guess
+     */
+	void showCurrentGameBoard(String word) { //TODO write a test for this
 		for (int i = 0; i < word.length(); ++i) {
 			if (lettersSuccessfullyGuessed.contains(word.charAt(i))) {
 				System.out.print(word.charAt(i));
@@ -42,6 +47,7 @@ public class GameState {
 			}
 		}
 		System.out.println("");
+        System.out.println("show word called here");
 		// System.out.println(missing); TODO figure out what this does - it appears several times
 	}
 	
@@ -80,15 +86,24 @@ public class GameState {
 		remainingGuesses--;
 		return false;
 	}
+
 	
-	boolean won() { //TODO write a test for this
+
+	//TODO you need to write the test for these two functions
+
+	//TODO do you even need two functions for this? Should won & lost be combine into one function?
+
+	boolean won() {
 		if (lettersNotGuessedYet.size() == 0) return true; else return false;
 	}
 
-	boolean lost() { //TODO write a test for this
+	boolean lost() {
 		if (lettersNotGuessedYet.size() > 0 && remainingGuesses == 0) return true; else return false;
 	}
 
+	/**
+	 * The hint method offers the user a hint if the user has any hints remaining.
+	 */
 	void hint() { //TODO write a test for this
 		if (hintsLeft == 0) {
 			System.out.println("No more hints allowed");

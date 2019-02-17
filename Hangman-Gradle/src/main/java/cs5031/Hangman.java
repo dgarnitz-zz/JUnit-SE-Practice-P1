@@ -8,8 +8,19 @@ public class Hangman {
 	private static GameState game;
 	private static CommandOpts opts;
 
+	/**
+	 * The main method of Hangman game. It first creates a scanner to read the user input from the console that will
+	 * be inputted  throughout the length of the game. It then instantiates a CommandOpts object, calls
+	 * initiateGame to start the game, playGame to conduct the game, and concludeGame to wrap the game up.
+	 * @param args command line arguments passed in at the start of the program
+	 */
 	public static void main(String[] args) {
 		scan = new Scanner(System.in);
+
+		//TODO  THIS WONT PRINT!!! ---> unclear what these arguments are that are being passed to CommandOpts
+		for(int i=0; i < args.length; i++) {
+			System.out.println(args[i] + " arg printed");
+		}
 
 		opts = new CommandOpts(args);
 
@@ -20,6 +31,11 @@ public class Hangman {
 		concludeGame();
 	}
 
+	/**
+	 * The initiateGame method handles the set up of the hangman game. It asks the users to pick between categories
+	 * then uses that input result along with previously configured options to instantiate a GameState object that
+	 * will be used to conduct the game play.
+	 */
 	static void initiateGame() {
 
 		if (opts.wordsource == "") {
@@ -37,10 +53,10 @@ public class Hangman {
 	}
 
 	static void playGame() {
-		boolean correct;
+		boolean correct; //TODO should this be declared inside the loop. Is it even needed?
 
 		while (!game.won() && !game.lost()) {
-			game.showWord(game.word);
+			game.showCurrentGameBoard(game.word);
 
 			System.out.println("Guesses remaining: " + game.remainingGuesses);
 

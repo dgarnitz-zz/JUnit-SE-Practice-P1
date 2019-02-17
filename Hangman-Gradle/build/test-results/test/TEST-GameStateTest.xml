@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="GameStateTest" tests="2" skipped="0" failures="1" errors="0" timestamp="2019-02-15T14:52:20" hostname="pc5-035-l" time="0.01">
+<testsuite name="GameStateTest" tests="2" skipped="0" failures="1" errors="0" timestamp="2019-02-17T15:35:13" hostname="pc2-026-l" time="0.013">
   <properties/>
-  <testcase name="showWord" classname="GameStateTest" time="0.009"/>
-  <testcase name="test" classname="GameStateTest" time="0.001">
+  <testcase name="showWord" classname="GameStateTest" time="0.011"/>
+  <testcase name="test" classname="GameStateTest" time="0.002">
     <failure message="java.lang.AssertionError: Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
 	at org.junit.Assert.fail(Assert.java:88)
 	at GameStateTest.test(GameStateTest.java:19)
