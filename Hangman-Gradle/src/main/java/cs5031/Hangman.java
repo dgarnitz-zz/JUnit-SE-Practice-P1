@@ -2,6 +2,7 @@ package cs5031;
 
 import java.util.Scanner;
 
+
 public class Hangman {
 
 	private static Scanner scan;
@@ -52,15 +53,19 @@ public class Hangman {
 		}
 	}
 
+	/**
+	 * The playGame function uses a while loop to conduct the actual play of the hangman game. It first calls
+	 * showCurrentGameBoard to display the game board, then prompts the user to enter a letter. It then calls the
+	 * GameState object's guessLetter method to process the user input, return a boolean to represent whether the
+	 * user guessed correctly or not and outputs this to the console.
+	 */
 	static void playGame() {
-		boolean correct; //TODO should this be declared inside the loop. Is it even needed?
-
 		while (!game.won() && !game.lost()) {
-			game.showCurrentGameBoard(game.word);
+			game.showCurrentGameBoard(game.wordToGuess);
 
 			System.out.println("Guesses remaining: " + game.remainingGuesses);
 
-			correct = game.guessLetter();
+			boolean correct = game.guessLetter();
 
 			if (correct) System.out.println("Good guess!");
 			if (!correct) System.out.println("Wrong guess!");
@@ -72,7 +77,7 @@ public class Hangman {
 			System.out.println("Well done!");
 			System.out.println("You took " + game.guessesMade + " guessesMade");
 		} else {
-			System.out.println("You lost! The word was " + game.word);
+			System.out.println("You lost! The wordToGuess was " + game.wordToGuess);
 		}
 	}
 }

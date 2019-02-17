@@ -11,7 +11,7 @@ public class GameStateTest {
 	public void showWord() {
 		String testWord = "Test";
 		GameState testGame = new GameState(testWord, 20, 20);
-		assertEquals(testWord, testGame.word);
+		assertEquals(testWord, testGame.wordToGuess);
 	}
 	
 	@Test
