@@ -1,5 +1,7 @@
 package cs5031;
 
+import java.io.File;
+
 public class CommandOpts {
 
 	public int maxguesses;
@@ -13,7 +15,11 @@ public class CommandOpts {
 		maxhints = 2;
 		
 		wordsource = "";
-		
+
+		processArguments(args);
+	}
+
+	public void processArguments(String[] args) {
 		for(int i = 0; i < args.length; ++i) {
 			if (args[i].equals("--guessesMade")) {
 				maxguesses = Integer.parseInt(args[i+1]);
@@ -23,7 +29,16 @@ public class CommandOpts {
 				maxhints = Integer.parseInt(args[i+1]);
 				i++;
 			}
-			else wordsource = args[i];
+			else {
+				checkWordSource(args[i]);
+			}
+		}
+	}
+
+	public void checkWordSource(String source) {
+		File checkPath = new File(source);
+		if(checkPath.exists() && !checkPath.isDirectory()) {
+			wordsource = source;
 		}
 	}
 }

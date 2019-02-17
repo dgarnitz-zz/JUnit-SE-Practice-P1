@@ -56,7 +56,7 @@ public class GameState {
 		String str = sc.next().toLowerCase(); //TODO resolve this error related to java.lang.String, it occurs all over
 
 		if (str.length() > 1) {
-			return inputLengthGreaterThanOne(str);
+			return inputLengthGreaterThanOne(str); //TODO this should probably be processed inside hangman, as the game should end if the user guesses the whole word
 		}
 
 		char letter = str.charAt(0);
@@ -75,6 +75,7 @@ public class GameState {
 		return false;
 	}
 
+    //TODO I think this needs to be changed. if the user successfully enters all guesses. More things need to happen
 	public Boolean inputLengthGreaterThanOne(String str) {
 		if (str == wordToGuess) {
 			lettersNotGuessedYet.clear();
@@ -84,6 +85,14 @@ public class GameState {
 		}
 	}
 
+    /**
+     * This function takes the letter entered by the user and compares it against the set of letters not yet guessed.
+     * If the letter the user guessed is part of lettersNotGuessedYet, it removes it from there and adds it to
+     * lettersSuccessfullyGuess. It then increments guessesMade and returns true. If the letter does not match it
+     * returns false.
+     * @param letter the letter being checked
+     * @return
+     */
 	public Boolean checkGuessedLetter(char letter) {
 		for(int i = 0; i < lettersNotGuessedYet.size(); ++i) {
 			if (lettersNotGuessedYet.get(i) == letter) {
