@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommandOpts.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Hangman</a> &gt; <a href="index.source.html" class="el_package">cs5031</a> &gt; <span class="el_source">CommandOpts.java</span></div><h1>CommandOpts.java</h1><pre class="source lang-java linenums">package cs5031;
+
+import java.io.File;
+
+public class CommandOpts {
+
+	public int maxguesses;
+	public int maxhints;
+
+	public String wordsource;
+	
+	//TODO write a test(s) for this constructor method - it should make sure maxguesses = 10 and maxhints = 2
+<span class="nc" id="L13">	public CommandOpts(String[] args) {</span>
+<span class="nc" id="L14">		maxguesses = 10;</span>
+<span class="nc" id="L15">		maxhints = 2;</span>
+		
+<span class="nc" id="L17">		wordsource = &quot;&quot;;</span>
+
+<span class="nc" id="L19">		processArguments(args);</span>
+<span class="nc" id="L20">	}</span>
+
+	public void processArguments(String[] args) {
+<span class="nc bnc" id="L23" title="All 2 branches missed.">		for(int i = 0; i &lt; args.length; ++i) {</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">			if (args[i].equals(&quot;--guessesMade&quot;)) {</span>
+<span class="nc" id="L25">				maxguesses = Integer.parseInt(args[i+1]);</span>
+<span class="nc" id="L26">				i++;</span>
+			}
+<span class="nc bnc" id="L28" title="All 2 branches missed.">			else if (args[i].equals(&quot;--hints&quot;)) {</span>
+<span class="nc" id="L29">				maxhints = Integer.parseInt(args[i+1]);</span>
+<span class="nc" id="L30">				i++;</span>
+			}
+			else {
+<span class="nc bnc" id="L33" title="All 2 branches missed.">				if(checkWordSource(args[i])) {</span>
+<span class="nc" id="L34">					wordsource = args[i];</span>
+				} else {
+<span class="nc" id="L36">					System.out.println(&quot;Please enter valid word source&quot;);</span>
+				}
+			}
+		}
+<span class="nc" id="L40">	}</span>
+
+	public Boolean checkWordSource(String source) {
+<span class="nc" id="L43">		File checkPath = new File(source);</span>
+<span class="nc bnc" id="L44" title="All 4 branches missed.">		if(checkPath.exists() &amp;&amp; !checkPath.isDirectory()) {</span>
+<span class="nc" id="L45">			return true;</span>
+		}
+<span class="nc" id="L47">		return false;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

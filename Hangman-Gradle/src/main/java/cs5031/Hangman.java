@@ -94,6 +94,7 @@ public class Hangman {
 
 			if (correct == "correct") System.out.println("Good guess!");
 			if (correct == "incorrect") System.out.println("Wrong guess!");
+			if (correct == "error") System.out.println("Error with guess. Please enter it again");
 		}
 	}
 

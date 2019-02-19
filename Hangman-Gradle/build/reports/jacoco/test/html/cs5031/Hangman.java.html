@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Hangman.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Hangman</a> &gt; <a href="index.source.html" class="el_package">cs5031</a> &gt; <span class="el_source">Hangman.java</span></div><h1>Hangman.java</h1><pre class="source lang-java linenums">package cs5031;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+
+<span class="nc" id="L7">public class Hangman {</span>
+
+	private static Scanner scan;
+	private static GameState game;
+	private static CommandOpts opts;
+
+	/**
+	 * The main method of Hangman game. It first creates a scanner to read the user input from the console that will
+	 * be inputted  throughout the length of the game. It then instantiates a CommandOpts object, calls
+	 * initiateGame to start the game, playGame to conduct the game, and concludeGame to wrap the game up.
+	 * @param args command line arguments passed in at the start of the program
+	 */
+	public static void main(String[] args) {
+<span class="nc" id="L20">		scan = new Scanner(System.in);</span>
+
+<span class="nc" id="L22">		opts = new CommandOpts(args);</span>
+
+<span class="nc" id="L24">		initiateGame();</span>
+
+<span class="nc" id="L26">		playGame();</span>
+
+<span class="nc" id="L28">		concludeGame();</span>
+<span class="nc" id="L29">	}</span>
+
+	/**
+	 * The initiateGame method handles the set up of the hangman game. It asks the users to pick between categories
+	 * then uses that input result along with previously configured options to instantiate a GameState object that
+	 * will be used to conduct the game play.
+	 */
+	static void initiateGame() {
+
+<span class="nc bnc" id="L38" title="All 2 branches missed.">		if (opts.wordsource == &quot;&quot;) {</span>
+
+<span class="nc" id="L40">			int userChoice = 0;</span>
+			do  {
+<span class="nc" id="L42">				System.out.println(&quot;  1. Counties&quot;);</span>
+<span class="nc" id="L43">				System.out.println(&quot;  2. Countries&quot;);</span>
+<span class="nc" id="L44">				System.out.println(&quot;  3. Cities&quot;);</span>
+
+<span class="nc" id="L46">				System.out.print(&quot;Pick a category:&quot;);</span>
+
+
+<span class="nc bnc" id="L49" title="All 2 branches missed.">				if(scan.hasNext()){</span>
+<span class="nc" id="L50">					userChoice = checkForMismatch(scan);</span>
+				}
+
+<span class="nc bnc" id="L53" title="All 2 branches missed.">			} while(!checkUserChoice(userChoice));</span>
+
+<span class="nc" id="L55">			game = new GameState(Words.randomWord(userChoice), opts.maxguesses, opts.maxhints);</span>
+<span class="nc" id="L56">		} else {</span>
+<span class="nc" id="L57">			game = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);</span>
+		}
+<span class="nc" id="L59">	}</span>
+
+	public static int checkForMismatch(Scanner scan) {
+		try {
+<span class="nc" id="L63">			return scan.nextInt();</span>
+<span class="nc" id="L64">		} catch(InputMismatchException e) {</span>
+<span class="nc" id="L65">			scan.next(); //To prevent this while loop from going infinitely, need to read in the whole string</span>
+<span class="nc" id="L66">			return 0;</span>
+		}
+	}
+
+	public static Boolean checkUserChoice(int userChoice) {
+<span class="nc bnc" id="L71" title="All 6 branches missed.">		if(userChoice == 1 || userChoice == 2 || userChoice == 3) {</span>
+<span class="nc" id="L72">			return true;</span>
+		} else {
+<span class="nc" id="L74">			return false;</span>
+		}
+	}
+
+	/**
+	 * The playGame function uses a while loop to conduct the actual play of the hangman game. It first calls
+	 * showCurrentGameBoard to display the game board, then prompts the user to enter a letter. It then calls the
+	 * GameState object's guessLetter method to process the user input, return a boolean to represent whether the
+	 * user guessed correctly or not and outputs this to the console.
+	 */
+	static void playGame() {
+<span class="nc bnc" id="L85" title="All 4 branches missed.">		while (!game.won() &amp;&amp; !game.lost()) {</span>
+<span class="nc" id="L86">			game.showCurrentGameBoard(game.wordToGuess);</span>
+
+<span class="nc" id="L88">			System.out.println(&quot;Guesses remaining: &quot; + game.remainingGuesses);</span>
+
+<span class="nc" id="L90">			String correct = game.guessLetter();</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">			if(correct == &quot;victory&quot;) {</span>
+<span class="nc" id="L92">				break;</span>
+			}
+
+<span class="nc bnc" id="L95" title="All 2 branches missed.">			if (correct == &quot;correct&quot;) System.out.println(&quot;Good guess!&quot;);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">			if (correct == &quot;incorrect&quot;) System.out.println(&quot;Wrong guess!&quot;);</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">			if (correct == &quot;error&quot;) System.out.println(&quot;Error with guess. Please enter it again&quot;);</span>
+<span class="nc" id="L98">		}</span>
+<span class="nc" id="L99">	}</span>
+
+	static void concludeGame() {
+<span class="nc bnc" id="L102" title="All 2 branches missed.">		if (game.won()) {</span>
+<span class="nc" id="L103">			System.out.println(&quot;Well done!&quot;);</span>
+<span class="nc" id="L104">			System.out.println(&quot;You took &quot; + game.guessesMade + &quot; guessesMade&quot;);</span>
+		} else {
+<span class="nc" id="L106">			System.out.println(&quot;You lost! The wordToGuess was &quot; + game.wordToGuess);</span>
+		}
+<span class="nc" id="L108">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

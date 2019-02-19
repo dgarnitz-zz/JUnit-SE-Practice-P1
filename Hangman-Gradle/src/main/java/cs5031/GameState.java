@@ -3,9 +3,6 @@ package cs5031;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//TODO Clean up ugly comments
-
-
 public class GameState {
 	public String wordToGuess;
 	public int guessesMade;
@@ -53,15 +50,20 @@ public class GameState {
 	String guessLetter() {
 		System.out.print("Guess a letter or word to guess (? for a hint): ");
 
-		String str = sc.next().toLowerCase();
+		String str = sc.next();
 
 		return processLetter(str);
 	}
 
 	public String processLetter(String str) {
+		if(str == null || str.length() == 0) {
+			return "error";
+		}
+
+		str = str.toLowerCase();
+
 		if (str.length() > 1) {
 			return (inputLengthGreaterThanOne(str)) ? "victory": inCorrectGuess();
-
 		}
 
 		char letter = str.charAt(0);
@@ -78,13 +80,12 @@ public class GameState {
 		return inCorrectGuess();
 	}
 
-	public String inCorrectGuess() {
+	private String inCorrectGuess() {
 		guessesMade++;
 		remainingGuesses--;
 		return "incorrect";
 	}
 
-    //TODO I think this needs to be changed. if the user successfully enters all guesses. More things need to happen
 	public Boolean inputLengthGreaterThanOne(String str) {
 		if (str.equals(wordToGuess)) {
 			lettersNotGuessedYet.clear();
