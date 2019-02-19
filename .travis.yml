@@ -2,4 +2,6 @@ language: java
 
 install: true
 
-script: gradle build
+script:
+  -gradle test
+  -gradle build
