@@ -37,7 +37,7 @@ public class GameState {
 	 * successfully guessed by the user. A dash is printed in place of any letter not yet guess by the user.
      * @param word a string containing the wordToGuess the user is trying to guess
      */
-	void showCurrentGameBoard(String word) { //TODO write a test for this
+	void showCurrentGameBoard(String word) {
 		for (int i = 0; i < word.length(); ++i) {
 			if (lettersSuccessfullyGuessed.contains(word.charAt(i)) && word.charAt(i) != ' ') {
 				System.out.print(word.charAt(i));
@@ -114,7 +114,6 @@ public class GameState {
 
 		return false;
 	}
-	//TODO you need to write the test for these two functions
 
 	//TODO do you even need two functions for this? Should won & lost be combine into one function?
 	boolean won() {
@@ -131,9 +130,10 @@ public class GameState {
 	void hint() { //TODO write a test for this
 		if (hintsLeft == 0) {
 			System.out.println("No more hints allowed");
+		} else {
+			System.out.print("Try: ");
+			System.out.println(lettersNotGuessedYet.get((int)(Math.random()* lettersNotGuessedYet.size())));
+			hintsLeft--;
 		}
-		
-		System.out.print("Try: ");
-		System.out.println(lettersNotGuessedYet.get((int)(Math.random()* lettersNotGuessedYet.size())));
 	}
 }

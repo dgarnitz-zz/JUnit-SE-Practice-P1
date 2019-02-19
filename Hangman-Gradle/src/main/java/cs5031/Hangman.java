@@ -1,5 +1,6 @@
 package cs5031;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -36,24 +37,33 @@ public class Hangman {
 
 		if (opts.wordsource == "") {
 
-			int userChoice = 0; //TODO refactor this into a method so you can test it
+			int userChoice = 0;
 			do  {
 				System.out.println("  1. Counties");
 				System.out.println("  2. Countries");
 				System.out.println("  3. Cities");
 
 				System.out.print("Pick a category:");
+
+
 				if(scan.hasNext()){
-					userChoice = scan.nextInt();
+					userChoice = checkForMismatch(scan);
 				}
 
 			} while(!checkUserChoice(userChoice));
 
-
-
 			game = new GameState(Words.randomWord(userChoice), opts.maxguesses, opts.maxhints);
 		} else {
 			game = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
+		}
+	}
+
+	public static int checkForMismatch(Scanner scan) {
+		try {
+			return scan.nextInt();
+		} catch(InputMismatchException e) {
+			scan.next(); //To prevent this while loop from going infinitely, need to read in the whole string
+			return 0;
 		}
 	}
 
