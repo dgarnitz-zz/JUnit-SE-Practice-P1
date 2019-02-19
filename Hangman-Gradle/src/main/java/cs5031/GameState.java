@@ -51,16 +51,20 @@ public class GameState {
 	}
 	
 	boolean guessLetter() { //TODO break this function down into several smaller functions
-		System.out.print("Guess a letter or word to guess (? for a hint): ");
+		System.out.print("Guess a letter or word to guess (? for a hint): "); //TODO separate from read in the guess from separate the guess, need new function
 
-		String str = sc.next().toLowerCase(); //TODO resolve this error related to java.lang.String, it occurs all over
+		String str = sc.next().toLowerCase();
 
+		return processLetter(str);
+	}
+
+	public Boolean processLetter(String str) {
 		if (str.length() > 1) {
-			return inputLengthGreaterThanOne(str); //TODO this should probably be processed inside hangman, as the game should end if the user guesses the whole word
+			return inputLengthGreaterThanOne(str);
 		}
 
 		char letter = str.charAt(0);
-		
+
 		if (letter == '?') {
 			hint();
 			return false;

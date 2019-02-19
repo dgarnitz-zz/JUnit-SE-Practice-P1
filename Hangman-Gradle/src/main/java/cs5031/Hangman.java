@@ -18,11 +18,6 @@ public class Hangman {
 	public static void main(String[] args) {
 		scan = new Scanner(System.in);
 
-		//TODO  THIS WONT PRINT!!! ---> unclear what these arguments are that are being passed to CommandOpts
-		for(int i=0; i < args.length; i++) {
-			System.out.println(args[i] + " arg printed");
-		}
-
 		opts = new CommandOpts(args);
 
 		initiateGame();
@@ -41,15 +36,32 @@ public class Hangman {
 
 		if (opts.wordsource == "") {
 
-			System.out.println("  1. Counties");
-			System.out.println("  2. Countries");
-			System.out.println("  3. Cities");
+			int userChoice = 0;
+			do  {
+				System.out.println("  1. Counties");
+				System.out.println("  2. Countries");
+				System.out.println("  3. Cities");
 
-			System.out.print("Pick a category:");
+				System.out.print("Pick a category:");
+				if(scan.hasNext()){
+					userChoice = scan.nextInt();
+				}
 
-			game = new GameState(Words.randomWord(scan.nextInt()), opts.maxguesses, opts.maxhints);
+			} while(!checkUserChoice(userChoice));
+
+
+
+			game = new GameState(Words.randomWord(userChoice), opts.maxguesses, opts.maxhints);
 		} else {
 			game = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
+		}
+	}
+
+	public static Boolean checkUserChoice(int userChoice) {
+		if(userChoice == 1 || userChoice == 2 || userChoice == 3) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -66,6 +78,9 @@ public class Hangman {
 			System.out.println("Guesses remaining: " + game.remainingGuesses);
 
 			boolean correct = game.guessLetter();
+			if(game.won()) {
+				break;
+			}
 
 			if (correct) System.out.println("Good guess!");
 			if (!correct) System.out.println("Wrong guess!");

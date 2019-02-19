@@ -30,15 +30,20 @@ public class CommandOpts {
 				i++;
 			}
 			else {
-				checkWordSource(args[i]);
+				if(checkWordSource(args[i])) {
+					wordsource = args[i];
+				} else {
+					System.out.println("Please enter valid word source");
+				}
 			}
 		}
 	}
 
-	public void checkWordSource(String source) {
+	public Boolean checkWordSource(String source) {
 		File checkPath = new File(source);
 		if(checkPath.exists() && !checkPath.isDirectory()) {
-			wordsource = source;
+			return true;
 		}
+		return false;
 	}
 }
