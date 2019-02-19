@@ -83,7 +83,7 @@ public class GameState {
 		} else {
 			return false;
 		}
-	}
+	} //TODO FIX THIS
 
     /**
      * This function takes the letter entered by the user and compares it against the set of letters not yet guessed.
