@@ -18,7 +18,7 @@ public class GameState {
 	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
 	
 	public GameState(String target, int guessesMade, int hintsLeft) {
-		this.wordToGuess = target;
+		this.wordToGuess = target.toLowerCase();
 		lettersNotGuessedYet = new ArrayList<Character>();
 		lettersSuccessfullyGuessed = new ArrayList<Character>();
 		
@@ -26,7 +26,6 @@ public class GameState {
 			if (!lettersNotGuessedYet.contains(Character.toLowerCase(target.charAt(i))))
 			lettersNotGuessedYet.add(Character.toLowerCase(target.charAt(i)));
 		}
-		//System.out.println(missing); //TODO What is this?
 		
 		this.guessesMade = 0;
 		remainingGuesses = guessesMade;
@@ -40,54 +39,60 @@ public class GameState {
      */
 	void showCurrentGameBoard(String word) { //TODO write a test for this
 		for (int i = 0; i < word.length(); ++i) {
-			if (lettersSuccessfullyGuessed.contains(word.charAt(i))) {
+			if (lettersSuccessfullyGuessed.contains(word.charAt(i)) && word.charAt(i) != ' ') {
 				System.out.print(word.charAt(i));
+			} else if(word.charAt(i) == ' ') {
+				System.out.print(" ");
 			} else {
 				System.out.print("-");
 			}
 		}
 		System.out.println("");
-		// System.out.println(missing); TODO figure out what this does - it appears several times
 	}
 	
-	boolean guessLetter() { //TODO break this function down into several smaller functions
-		System.out.print("Guess a letter or word to guess (? for a hint): "); //TODO separate from read in the guess from separate the guess, need new function
+	String guessLetter() {
+		System.out.print("Guess a letter or word to guess (? for a hint): ");
 
 		String str = sc.next().toLowerCase();
 
 		return processLetter(str);
 	}
 
-	public Boolean processLetter(String str) {
+	public String processLetter(String str) {
 		if (str.length() > 1) {
-			return inputLengthGreaterThanOne(str);
+			return (inputLengthGreaterThanOne(str)) ? "victory": inCorrectGuess();
+
 		}
 
 		char letter = str.charAt(0);
 
 		if (letter == '?') {
 			hint();
-			return false;
+			return "hint";
 		}
 
 		if(checkGuessedLetter(letter)){
-			return true;
+			return "correct";
 		}
 
+		return inCorrectGuess();
+	}
+
+	public String inCorrectGuess() {
 		guessesMade++;
 		remainingGuesses--;
-		return false;
+		return "incorrect";
 	}
 
     //TODO I think this needs to be changed. if the user successfully enters all guesses. More things need to happen
 	public Boolean inputLengthGreaterThanOne(String str) {
-		if (str == wordToGuess) {
+		if (str.equals(wordToGuess)) {
 			lettersNotGuessedYet.clear();
 			return true;
 		} else {
 			return false;
 		}
-	} //TODO FIX THIS
+	}
 
     /**
      * This function takes the letter entered by the user and compares it against the set of letters not yet guessed.

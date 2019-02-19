@@ -36,7 +36,7 @@ public class Hangman {
 
 		if (opts.wordsource == "") {
 
-			int userChoice = 0;
+			int userChoice = 0; //TODO refactor this into a method so you can test it
 			do  {
 				System.out.println("  1. Counties");
 				System.out.println("  2. Countries");
@@ -77,13 +77,13 @@ public class Hangman {
 
 			System.out.println("Guesses remaining: " + game.remainingGuesses);
 
-			boolean correct = game.guessLetter();
-			if(game.won()) {
+			String correct = game.guessLetter();
+			if(correct == "victory") {
 				break;
 			}
 
-			if (correct) System.out.println("Good guess!");
-			if (!correct) System.out.println("Wrong guess!");
+			if (correct == "correct") System.out.println("Good guess!");
+			if (correct == "incorrect") System.out.println("Wrong guess!");
 		}
 	}
 
