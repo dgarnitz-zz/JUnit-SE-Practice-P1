@@ -50,7 +50,7 @@ public class Hangman {
 					userChoice = checkForMismatch(scan);
 				}
 
-			} while(!checkUserChoice(userChoice));
+			} while(!(userChoice == 1 || userChoice == 2 || userChoice == 3));
 
 			game = new GameState(Words.randomWord(userChoice), opts.maxguesses, opts.maxhints);
 		} else {
@@ -62,16 +62,8 @@ public class Hangman {
 		try {
 			return scan.nextInt();
 		} catch(InputMismatchException e) {
-			scan.next(); //To prevent this while loop from going infinitely, need to read in the whole string
+			scan.next(); 	//To prevent this while loop from going infinitely, need to read in the whole string
 			return 0;
-		}
-	}
-
-	public static Boolean checkUserChoice(int userChoice) {
-		if(userChoice == 1 || userChoice == 2 || userChoice == 3) {
-			return true;
-		} else {
-			return false;
 		}
 	}
 

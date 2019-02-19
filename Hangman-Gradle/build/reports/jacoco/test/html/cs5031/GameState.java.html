@@ -29,113 +29,108 @@ public class GameState {
 <span class="fc" id="L29">		this.hintsLeft = hintsLeft;</span>
 <span class="fc" id="L30">	}</span>
 
+	//TODO can make certain methods private if you refactor
+
     /**
      * This function prints the game board in its current state to the console. It prints any letters already
 	 * successfully guessed by the user. A dash is printed in place of any letter not yet guess by the user.
      * @param word a string containing the wordToGuess the user is trying to guess
      */
-	void showCurrentGameBoard(String word) {
-<span class="nc bnc" id="L38" title="All 2 branches missed.">		for (int i = 0; i &lt; word.length(); ++i) {</span>
-<span class="nc bnc" id="L39" title="All 4 branches missed.">			if (lettersSuccessfullyGuessed.contains(word.charAt(i)) &amp;&amp; word.charAt(i) != ' ') {</span>
-<span class="nc" id="L40">				System.out.print(word.charAt(i));</span>
-<span class="nc bnc" id="L41" title="All 2 branches missed.">			} else if(word.charAt(i) == ' ') {</span>
-<span class="nc" id="L42">				System.out.print(&quot; &quot;);</span>
+	void showCurrentGameBoard(String word) { 		//TODO may want to consider refactoring this to make it more testable
+<span class="nc bnc" id="L40" title="All 2 branches missed.">		for (int i = 0; i &lt; word.length(); ++i) {</span>
+<span class="nc bnc" id="L41" title="All 4 branches missed.">			if (lettersSuccessfullyGuessed.contains(word.charAt(i)) &amp;&amp; word.charAt(i) != ' ') {</span>
+<span class="nc" id="L42">				System.out.print(word.charAt(i));</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">			} else if(word.charAt(i) == ' ') {</span>
+<span class="nc" id="L44">				System.out.print(&quot; &quot;);</span>
 			} else {
-<span class="nc" id="L44">				System.out.print(&quot;-&quot;);</span>
+<span class="nc" id="L46">				System.out.print(&quot;-&quot;);</span>
 			}
 		}
-<span class="nc" id="L47">		System.out.println(&quot;&quot;);</span>
-<span class="nc" id="L48">	}</span>
+<span class="nc" id="L49">		System.out.println(&quot;&quot;);</span>
+<span class="nc" id="L50">	}</span>
 	
-	String guessLetter() {
-<span class="nc" id="L51">		System.out.print(&quot;Guess a letter or word to guess (? for a hint): &quot;);</span>
+	String guessLetter() { 							//TODO may want to consider refactoring this to make it more testable
+<span class="nc" id="L53">		System.out.print(&quot;Guess a letter or word to guess (? for a hint): &quot;);</span>
 
-<span class="nc" id="L53">		String str = sc.next();</span>
+<span class="nc" id="L55">		String str = sc.next();</span>
 
-<span class="nc" id="L55">		return processLetter(str);</span>
+<span class="nc" id="L57">		return processLetter(str);</span>
 	}
 
+	//TODO insert JavaDOC
 	public String processLetter(String str) {
-<span class="fc bfc" id="L59" title="All 4 branches covered.">		if(str == null || str.length() == 0) {</span>
-<span class="fc" id="L60">			return &quot;error&quot;;</span>
+<span class="fc bfc" id="L62" title="All 4 branches covered.">		if(str == null || str.length() == 0) {</span>
+<span class="fc" id="L63">			return &quot;error&quot;;</span>
 		}
 
-<span class="fc" id="L63">		str = str.toLowerCase();</span>
+<span class="fc" id="L66">		str = str.toLowerCase();</span>
 
-<span class="fc bfc" id="L65" title="All 2 branches covered.">		if (str.length() &gt; 1) {</span>
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">			return (inputLengthGreaterThanOne(str)) ? &quot;victory&quot;: inCorrectGuess();</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">		if (str.length() &gt; 1) {</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">			return (inputLengthGreaterThanOne(str)) ? &quot;victory&quot;: inCorrectGuess();</span>
 		}
 
-<span class="fc" id="L69">		char letter = str.charAt(0);</span>
+<span class="fc" id="L72">		char letter = str.charAt(0);</span>
 
-<span class="fc bfc" id="L71" title="All 2 branches covered.">		if (letter == '?') {</span>
-<span class="fc" id="L72">			hint();</span>
-<span class="fc" id="L73">			return &quot;hint&quot;;</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">		if (letter == '?') {</span>
+<span class="fc" id="L75">			hint();</span>
+<span class="fc" id="L76">			return &quot;hint&quot;;</span>
 		}
 
-<span class="fc bfc" id="L76" title="All 2 branches covered.">		if(checkGuessedLetter(letter)){</span>
-<span class="fc" id="L77">			return &quot;correct&quot;;</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">		if(checkGuessedLetter(letter)){</span>
+<span class="fc" id="L80">			return &quot;correct&quot;;</span>
 		}
 
-<span class="fc" id="L80">		return inCorrectGuess();</span>
+<span class="fc" id="L83">		return inCorrectGuess();</span>
 	}
 
 	private String inCorrectGuess() {
-<span class="fc" id="L84">		guessesMade++;</span>
-<span class="fc" id="L85">		remainingGuesses--;</span>
-<span class="fc" id="L86">		return &quot;incorrect&quot;;</span>
+<span class="fc" id="L87">		guessesMade++;</span>
+<span class="fc" id="L88">		remainingGuesses--;</span>
+<span class="fc" id="L89">		return &quot;incorrect&quot;;</span>
 	}
 
-	public Boolean inputLengthGreaterThanOne(String str) {
-<span class="pc bpc" id="L90" title="1 of 2 branches missed.">		if (str.equals(wordToGuess)) {</span>
-<span class="nc" id="L91">			lettersNotGuessedYet.clear();</span>
-<span class="nc" id="L92">			return true;</span>
+	private Boolean inputLengthGreaterThanOne(String str) {
+<span class="fc bfc" id="L93" title="All 2 branches covered.">		if (str.equals(wordToGuess)) {</span>
+<span class="fc" id="L94">			lettersNotGuessedYet.clear();</span>
+<span class="fc" id="L95">			guessesMade++;</span>
+<span class="fc" id="L96">			return true;</span>
 		} else {
-<span class="fc" id="L94">			return false;</span>
+<span class="fc" id="L98">			return false;</span>
 		}
 	}
 
-    /**
-     * This function takes the letter entered by the user and compares it against the set of letters not yet guessed.
-     * If the letter the user guessed is part of lettersNotGuessedYet, it removes it from there and adds it to
-     * lettersSuccessfullyGuess. It then increments guessesMade and returns true. If the letter does not match it
-     * returns false.
-     * @param letter the letter being checked
-     * @return
-     */
-	public Boolean checkGuessedLetter(char letter) {
-<span class="fc bfc" id="L107" title="All 2 branches covered.">		for(int i = 0; i &lt; lettersNotGuessedYet.size(); ++i) {</span>
-<span class="fc bfc" id="L108" title="All 2 branches covered.">			if (lettersNotGuessedYet.get(i) == letter) {</span>
-<span class="fc" id="L109">				lettersNotGuessedYet.remove(i);</span>
-<span class="fc" id="L110">				lettersSuccessfullyGuessed.add(letter);</span>
-<span class="fc" id="L111">				guessesMade++;</span>
-<span class="fc" id="L112">				return true;</span>
+	private Boolean checkGuessedLetter(char letter) {
+<span class="fc bfc" id="L103" title="All 2 branches covered.">		for(int i = 0; i &lt; lettersNotGuessedYet.size(); ++i) {</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">			if (lettersNotGuessedYet.get(i) == letter) {</span>
+<span class="fc" id="L105">				lettersNotGuessedYet.remove(i);</span>
+<span class="fc" id="L106">				lettersSuccessfullyGuessed.add(letter);</span>
+<span class="fc" id="L107">				guessesMade++;</span>
+<span class="fc" id="L108">				return true;</span>
 			}
 		}
 
-<span class="fc" id="L116">		return false;</span>
+<span class="fc" id="L112">		return false;</span>
 	}
 
-	//TODO do you even need two functions for this? Should won &amp; lost be combine into one function?
-	boolean won() {
-<span class="nc bnc" id="L121" title="All 2 branches missed.">		if (lettersNotGuessedYet.size() == 0) return true; else return false;</span>
+	boolean won() { 						//TODO may want to consider refactoring this to make it more testable
+<span class="nc bnc" id="L116" title="All 2 branches missed.">		if (lettersNotGuessedYet.size() == 0) return true; else return false;</span>
 	}
 
-	boolean lost() {
-<span class="nc bnc" id="L125" title="All 4 branches missed.">		if (lettersNotGuessedYet.size() &gt; 0 &amp;&amp; remainingGuesses == 0) return true; else return false;</span>
+	boolean lost() { 						//TODO may want to consider refactoring this to make it more testable
+<span class="nc bnc" id="L120" title="All 4 branches missed.">		if (lettersNotGuessedYet.size() &gt; 0 &amp;&amp; remainingGuesses == 0) return true; else return false;</span>
 	}
 
 	/**
 	 * The hint method offers the user a hint if the user has any hints remaining.
 	 */
-	void hint() { //TODO write a test for this
-<span class="pc bpc" id="L132" title="1 of 2 branches missed.">		if (hintsLeft == 0) {</span>
-<span class="nc" id="L133">			System.out.println(&quot;No more hints allowed&quot;);</span>
+	void hint() { 							//TODO may want to consider refactoring this to make it more testable
+<span class="fc bfc" id="L127" title="All 2 branches covered.">		if (hintsLeft == 0) {</span>
+<span class="fc" id="L128">			System.out.println(&quot;No more hints allowed&quot;);</span>
 		} else {
-<span class="fc" id="L135">			System.out.print(&quot;Try: &quot;);</span>
-<span class="fc" id="L136">			System.out.println(lettersNotGuessedYet.get((int)(Math.random()* lettersNotGuessedYet.size())));</span>
-<span class="fc" id="L137">			hintsLeft--;</span>
+<span class="fc" id="L130">			System.out.print(&quot;Try: &quot;);</span>
+<span class="fc" id="L131">			System.out.println(lettersNotGuessedYet.get((int)(Math.random()* lettersNotGuessedYet.size())));</span>
+<span class="fc" id="L132">			hintsLeft--;</span>
 		}
-<span class="fc" id="L139">	}</span>
+<span class="fc" id="L134">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

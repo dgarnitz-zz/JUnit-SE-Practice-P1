@@ -8,8 +8,7 @@ public class CommandOpts {
 	public int maxhints;
 
 	public String wordsource;
-	
-	//TODO write a test(s) for this constructor method - it should make sure maxguesses = 10 and maxhints = 2
+
 	public CommandOpts(String[] args) {
 		maxguesses = 10;
 		maxhints = 2;
@@ -20,13 +19,18 @@ public class CommandOpts {
 	}
 
 	public void processArguments(String[] args) {
+		if(args == null) {
+			return;
+	}
 		for(int i = 0; i < args.length; ++i) {
-			if (args[i].equals("--guessesMade")) {
-				maxguesses = Integer.parseInt(args[i+1]);
+			if(args[i] == null) {
+				continue;
+			} else if (args[i].equals("--guessesMade")) {
+				maxguesses = parseGuess(args[i+1]);
 				i++;
 			}
 			else if (args[i].equals("--hints")) {
-				maxhints = Integer.parseInt(args[i+1]);
+				maxhints = parseHints(args[i+1]);
 				i++;
 			}
 			else {
@@ -39,11 +43,33 @@ public class CommandOpts {
 		}
 	}
 
-	public Boolean checkWordSource(String source) {
+	private Boolean checkWordSource(String source) {
 		File checkPath = new File(source);
 		if(checkPath.exists() && !checkPath.isDirectory()) {
 			return true;
 		}
 		return false;
+	}
+
+	private int parseGuess(String arg) {
+		if(arg != null) {
+			try {
+				return Integer.parseInt(arg);
+			} catch (NumberFormatException e) {
+				return maxguesses;
+			}
+		}
+		return maxguesses;
+	}
+
+	private int parseHints(String arg) {
+		if(arg != null) {
+			try {
+				return Integer.parseInt(arg);
+			} catch (NumberFormatException e) {
+				return maxhints;
+			}
+		}
+		return maxhints;
 	}
 }
