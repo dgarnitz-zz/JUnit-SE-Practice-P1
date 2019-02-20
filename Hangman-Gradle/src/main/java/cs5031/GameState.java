@@ -27,8 +27,6 @@ public class GameState {
 		this.hintsLeft = hintsLeft;
 	}
 
-	//TODO can make certain methods private if you refactor
-
     /**
      * This function prints the game board in its current state to the console. It prints any letters already
 	 * successfully guessed by the user. A dash is printed in place of any letter not yet guess by the user.
@@ -46,29 +44,41 @@ public class GameState {
 		}
 		System.out.println("");
 	}
-	
+
+	/**
+	 * The guessLetter method prompts the user to enter a letter. It then uses the scanner it has been passed to
+	 * acess the user's input, then passes it to processLetter.
+	 * @param scan the scanner it has been passed from the Hangman class.
+	 * @return a String containing the results of the processLetter method
+	 */
 	String guessLetter(Scanner scan) {
 		System.out.print("Guess a letter or word to guess (? for a hint): ");
 
 		scan.useDelimiter("\n");
-		String str = scan.next();
+		String input = scan.next();
 
-		return processLetter(str);
+		return processLetter(input);
 	}
 
-	//TODO insert JavaDOC
-	public String processLetter(String str) {
-		if(str == null || str.length() == 0) {
+	/**
+	 * The processLetter method takes a string read in from the scanner, analyzes it and calls private methods that
+	 * then make update to the GameState's state. It handles a variety of scenarios regarding the input and responds
+	 * accordingly.
+	 * @param input A string containing the
+	 * @return
+	 */
+	public String processLetter(String input) {
+		if(input == null || input.length() == 0) {
 			return "error";
 		}
 
-		str = str.toLowerCase();
+		input = input.toLowerCase();
 
-		if (str.length() > 1) {
-			return (inputLengthGreaterThanOne(str)) ? "victory": inCorrectGuess();
+		if (input.length() > 1) {
+			return (inputLengthGreaterThanOne(input)) ? "victory": inCorrectGuess();
 		}
 
-		char letter = str.charAt(0);
+		char letter = input.charAt(0);
 
 		if (letter == '?') {
 			hint();
@@ -112,16 +122,13 @@ public class GameState {
 	}
 
 	boolean won() {
-		if (lettersNotGuessedYet.size() == 0) return true; else return false;
+		return (lettersNotGuessedYet.size() == 0);
 	}
 
-	boolean lost() { 						//TODO may want to consider refactoring this to make it more testable
-		if (lettersNotGuessedYet.size() > 0 && remainingGuesses == 0) return true; else return false;
+	boolean lost() {
+		return (lettersNotGuessedYet.size() > 0 && remainingGuesses == 0);
 	}
 
-	/**
-	 * The hint method offers the user a hint if the user has any hints remaining.
-	 */
 	private void hint() {
 		if (hintsLeft == 0) {
 			System.out.println("No more hints allowed");

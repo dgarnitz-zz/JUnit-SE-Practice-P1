@@ -2,6 +2,11 @@ package cs5031;
 
 import java.io.File;
 
+/**
+ * The CommandOpts class contains the game's main configuration options such as the maximum number of guesses and hints.
+ * It also track a word source, should one be supplied by the user. It uses a series of private methods that parse the
+ * command line input and decide how to configure the object. This methods include error handling for faulty scenarios.
+ */
 public class CommandOpts {
 
 	public int maxguesses;
@@ -18,7 +23,7 @@ public class CommandOpts {
 		processArguments(args);
 	}
 
-	public void processArguments(String[] args) {
+	private void processArguments(String[] args) {
 		if(args == null) {
 			return;
 	}

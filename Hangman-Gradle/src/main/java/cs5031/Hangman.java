@@ -3,7 +3,9 @@ package cs5031;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
+/**
+ * The Hangman class contains the main method used to run the execution of the game.
+ */
 public class Hangman {
 
 	public static Scanner scan;
@@ -29,6 +31,13 @@ public class Hangman {
 		concludeGame();
 	}
 
+	/**
+	 * The initiateGame method manages the process of starting the game. It either reads in the user input to configure
+	 * and return GameState object, in which case it uses checkForMismatch to perform error handling, or it configures
+	 * a GameState object using the a word source file passed in by the user.
+	 * @param scanner The scanner created to read in the user input
+	 * @return the Game object used to track the game's state and manage its execution
+	 */
 	public static GameState initiateGame(Scanner scanner) {
 		if (opts.wordsource.equals("")) {
 			int userChoice = 0;
@@ -52,7 +61,7 @@ public class Hangman {
 		}
 	}
 
-	public static int checkForMismatch(Scanner scan) {
+	private static int checkForMismatch(Scanner scan) {
 		try {
 			return scan.nextInt();
 		} catch(InputMismatchException e) {
@@ -61,6 +70,11 @@ public class Hangman {
 		}
 	}
 
+	/**
+	 * The playGame manages the actual game play. It uses a while loop to keep prompting the user for input,
+	 * then calls the GameState's guessLetter method to process the user's input. It then outputs information based
+	 * on the results of the guessLetter function.
+	 */
 	public static void playGame() {
 		if(game.wordToGuess.equals("")) { error = true; }
 		while (!game.won() && !game.lost()) {
@@ -79,11 +93,16 @@ public class Hangman {
 		}
 	}
 
+	/**
+	 * The conclude game method outputs information to the user as the game wraps up. Either it tells the user that
+	 * they won and how long it took, that there was an error, or that the game was lost while revealing the target
+	 * word.
+	 */
 	public static void concludeGame() {
 		if (game.won()) {
 			System.out.println(game.wordToGuess);
 			System.out.println("Well done!");
-			System.out.println("You took " + game.guessesMade + " guessesMade");
+			System.out.println("You took " + game.guessesMade + " guesses made");
 		} else if(error) {
 			System.out.println("Error loading the game");
 		} else {

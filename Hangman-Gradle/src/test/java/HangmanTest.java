@@ -14,6 +14,13 @@ import java.io.PrintStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The HangmanTest contains the JUnit tests for the Hangman class. The tests are setup to test all the testable code
+ * inside the Hangman class, as well as some of the code from the GameState class that could not be tested directly.
+ * This class uses a ByteArrayOutputStream to simulate the user input being passed to the scanner and a PrintStream
+ * to catch the output of the console. With those configured, it is possible to test both the setup and execution of the
+ * game.
+ */
 public class HangmanTest {
     public Scanner scan;
     public CommandOpts options;
@@ -24,7 +31,6 @@ public class HangmanTest {
     @Before
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
-        //System.setErr(new PrintStream(errContent));
     }
 
     @After
@@ -106,7 +112,7 @@ public class HangmanTest {
                 "Guesses remaining: 10\n" +
                 "Guess a letter or word to guess (? for a hint): answer\n" +
                 "Well done!\n" +
-                "You took 1 guessesMade\n";
+                "You took 1 guesses made\n";
 
         assertEquals(expectedOutput, outContent.toString());
 

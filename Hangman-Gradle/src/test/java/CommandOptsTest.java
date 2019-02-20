@@ -3,7 +3,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import cs5031.CommandOpts;
 
-
+/**
+ * The CommandOptsTest class contains the JUnit tests for the CommandOpts class. The tests below are designed to test
+ * instantiating a CommandOpts object with a variety of parameters. The CommandOpts object is structured such that
+ * all its methods are private, but can all be invoked by the constructor, depending on which arguments are passed to
+ * it. These tests cover a broad range of possible arguments passed to the CommandOpts constructor, ensuring that every
+ * method in the class is tested.
+ */
 public class CommandOptsTest {
 	private String defaultGuessesIndicator = "--guessesMade";
 	private String defaultGuesses = "8";

@@ -4,6 +4,13 @@ import cs5031.GameState;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The GameStateTest class contains the principle set of JUnit tests for the GameState class. The functionality inside
+ * GameState can be divided into those classes which can be tested directly, which are tested in here, and those which
+ * must be tested indirectly, which are accessed from Hangman. Every test here is begun by calling the GameState's
+ * processLetter function. A variety of inputs are used to process letter in an attempt to catch all possible cases.
+ * The processLetter method calls several private methods that are also tested in this class.
+ */
 public class GameStateTest {
 	private static int guesses = 8;
 	private static int hints = 2;

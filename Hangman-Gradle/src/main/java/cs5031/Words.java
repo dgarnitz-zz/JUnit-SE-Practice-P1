@@ -18,12 +18,25 @@ public class Words {
 			            "Dundee", "Stirling", "Inverness", "Aberdeen", "Falkirk" };
 			
 	public static ArrayList<String> customwords;
-	
+
+	/**
+	 * This method takes an int, calls getSetOfWords to generate the list from that category, then calls the randomize
+	 * method to pick a random member from that category.
+	 * @param category int representing a word category the user has chose
+	 * @return
+	 */
 	public static String randomWord(int category) {
 		HashSet<String> wordList = getSetOfWords(category);
 		return randomize(wordList);
 	}
 
+	/**
+	 * This method takes an int representing a word category and returns a HashSet of the words in
+	 * that category. It could be private but was made public to facilitate the testing. The choice of a hashset was
+	 * also taken to facilitate the testing.
+	 * @param category int representing a word category the user has chose
+	 * @return a hash set containing the list of words from that category
+	 */
 	public static HashSet<String> getSetOfWords(int category) {
 		if (category == 1) {
 			return new HashSet<>(Arrays.asList(words1));
@@ -48,7 +61,13 @@ public class Words {
 		}
 		return chosen;
 	}
-	
+
+	/**
+	 * This version of the randomWord method is used when the user uploads their own word source from which the game
+	 * will draw its words from.
+	 * @param wordsource a String containing a file path where the game should access a list of words
+	 * @return a String containing a word from that file path or an empty string from an error
+	 */
 	public static String randomWord(String wordsource) {
 		customwords = new ArrayList<String>();
 		return attemptToReadInWords(wordsource);
