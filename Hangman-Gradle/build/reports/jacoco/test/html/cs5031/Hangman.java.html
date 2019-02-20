@@ -6,9 +6,10 @@ import java.util.Scanner;
 
 <span class="nc" id="L7">public class Hangman {</span>
 
-	private static Scanner scan;
-	private static GameState game;
-	private static CommandOpts opts;
+	public static Scanner scan;
+	public static GameState game;
+	public static CommandOpts opts;
+<span class="fc" id="L12">	private static Boolean error = false;</span>
 
 	/**
 	 * The main method of Hangman game. It first creates a scanner to read the user input from the console that will
@@ -17,86 +18,77 @@ import java.util.Scanner;
 	 * @param args command line arguments passed in at the start of the program
 	 */
 	public static void main(String[] args) {
-<span class="nc" id="L20">		scan = new Scanner(System.in);</span>
+<span class="nc" id="L21">		scan = new Scanner(System.in);</span>
 
-<span class="nc" id="L22">		opts = new CommandOpts(args);</span>
+<span class="nc" id="L23">		opts = new CommandOpts(args);</span>
 
-<span class="nc" id="L24">		initiateGame();</span>
+<span class="nc" id="L25">		game = initiateGame(scan);</span>
 
-<span class="nc" id="L26">		playGame();</span>
+<span class="nc" id="L27">		playGame();</span>
 
-<span class="nc" id="L28">		concludeGame();</span>
-<span class="nc" id="L29">	}</span>
+<span class="nc" id="L29">		concludeGame();</span>
+<span class="nc" id="L30">	}</span>
 
-	/**
-	 * The initiateGame method handles the set up of the hangman game. It asks the users to pick between categories
-	 * then uses that input result along with previously configured options to instantiate a GameState object that
-	 * will be used to conduct the game play.
-	 */
-	static void initiateGame() {
-
-<span class="nc bnc" id="L38" title="All 2 branches missed.">		if (opts.wordsource == &quot;&quot;) {</span>
-
-<span class="nc" id="L40">			int userChoice = 0;</span>
+	public static GameState initiateGame(Scanner scanner) {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">		if (opts.wordsource.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L34">			int userChoice = 0;</span>
 			do  {
-<span class="nc" id="L42">				System.out.println(&quot;  1. Counties&quot;);</span>
-<span class="nc" id="L43">				System.out.println(&quot;  2. Countries&quot;);</span>
-<span class="nc" id="L44">				System.out.println(&quot;  3. Cities&quot;);</span>
+<span class="fc" id="L36">				System.out.println(&quot;  1. Counties&quot;);</span>
+<span class="fc" id="L37">				System.out.println(&quot;  2. Countries&quot;);</span>
+<span class="fc" id="L38">				System.out.println(&quot;  3. Cities&quot;);</span>
 
-<span class="nc" id="L46">				System.out.print(&quot;Pick a category:&quot;);</span>
+<span class="fc" id="L40">				System.out.print(&quot;Pick a category:&quot;);</span>
 
 
-<span class="nc bnc" id="L49" title="All 2 branches missed.">				if(scan.hasNext()){</span>
-<span class="nc" id="L50">					userChoice = checkForMismatch(scan);</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">				if(scanner.hasNext()){</span>
+<span class="fc" id="L44">					userChoice = checkForMismatch(scanner);</span>
 				}
 
-<span class="nc bnc" id="L53" title="All 6 branches missed.">			} while(!(userChoice == 1 || userChoice == 2 || userChoice == 3));</span>
+<span class="pc bpc" id="L47" title="1 of 6 branches missed.">			} while(!(userChoice == 1 || userChoice == 2 || userChoice == 3));</span>
 
-<span class="nc" id="L55">			game = new GameState(Words.randomWord(userChoice), opts.maxguesses, opts.maxhints);</span>
-<span class="nc" id="L56">		} else {</span>
-<span class="nc" id="L57">			game = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);</span>
-		}
-<span class="nc" id="L59">	}</span>
-
-	public static int checkForMismatch(Scanner scan) {
-		try {
-<span class="nc" id="L63">			return scan.nextInt();</span>
-<span class="nc" id="L64">		} catch(InputMismatchException e) {</span>
-<span class="nc" id="L65">			scan.next(); 	//To prevent this while loop from going infinitely, need to read in the whole string</span>
-<span class="nc" id="L66">			return 0;</span>
+<span class="fc" id="L49">			return new GameState(Words.randomWord(userChoice), opts.maxguesses, opts.maxhints);</span>
+		} else {
+<span class="fc" id="L51">			return new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);</span>
 		}
 	}
 
-	/**
-	 * The playGame function uses a while loop to conduct the actual play of the hangman game. It first calls
-	 * showCurrentGameBoard to display the game board, then prompts the user to enter a letter. It then calls the
-	 * GameState object's guessLetter method to process the user input, return a boolean to represent whether the
-	 * user guessed correctly or not and outputs this to the console.
-	 */
-	static void playGame() {
-<span class="nc bnc" id="L77" title="All 4 branches missed.">		while (!game.won() &amp;&amp; !game.lost()) {</span>
-<span class="nc" id="L78">			game.showCurrentGameBoard(game.wordToGuess);</span>
+	public static int checkForMismatch(Scanner scan) {
+		try {
+<span class="fc" id="L57">			return scan.nextInt();</span>
+<span class="fc" id="L58">		} catch(InputMismatchException e) {</span>
+<span class="fc" id="L59">			scan.next(); 	//To prevent this while loop from going infinitely, need to read in the whole string</span>
+<span class="fc" id="L60">			return 0;</span>
+		}
+	}
 
-<span class="nc" id="L80">			System.out.println(&quot;Guesses remaining: &quot; + game.remainingGuesses);</span>
+	public static void playGame() {
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">		if(game.wordToGuess.equals(&quot;&quot;)) { error = true; }</span>
+<span class="pc bpc" id="L66" title="2 of 4 branches missed.">		while (!game.won() &amp;&amp; !game.lost()) {</span>
+<span class="fc" id="L67">			game.showCurrentGameBoard(game.wordToGuess);</span>
 
-<span class="nc" id="L82">			String correct = game.guessLetter();</span>
-<span class="nc bnc" id="L83" title="All 2 branches missed.">			if(correct == &quot;victory&quot;) {</span>
-<span class="nc" id="L84">				break;</span>
+<span class="fc" id="L69">			System.out.println(&quot;Guesses remaining: &quot; + game.remainingGuesses);</span>
+
+<span class="fc" id="L71">			String correct = game.guessLetter(scan);</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">			if(correct.equals(&quot;victory&quot;)) {</span>
+<span class="fc" id="L73">				break;</span>
 			}
 
-<span class="nc bnc" id="L87" title="All 2 branches missed.">			if (correct == &quot;correct&quot;) System.out.println(&quot;Good guess!&quot;);</span>
-<span class="nc bnc" id="L88" title="All 2 branches missed.">			if (correct == &quot;incorrect&quot;) System.out.println(&quot;Wrong guess!&quot;);</span>
-<span class="nc bnc" id="L89" title="All 2 branches missed.">			if (correct == &quot;error&quot;) System.out.println(&quot;Error with guess. Please enter it again&quot;);</span>
-<span class="nc" id="L90">		}</span>
-<span class="nc" id="L91">	}</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">			if (correct.equals(&quot;correct&quot;)) System.out.println(&quot;Good guess!&quot;);</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">			if (correct.equals(&quot;incorrect&quot;)) System.out.println(&quot;Wrong guess!&quot;);</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">			if (correct.equals(&quot;error&quot;)) System.out.println(&quot;Error with guess. Please enter it again&quot;);</span>
+<span class="nc" id="L79">		}</span>
+<span class="fc" id="L80">	}</span>
 
-	static void concludeGame() {
-<span class="nc bnc" id="L94" title="All 2 branches missed.">		if (game.won()) {</span>
-<span class="nc" id="L95">			System.out.println(&quot;Well done!&quot;);</span>
-<span class="nc" id="L96">			System.out.println(&quot;You took &quot; + game.guessesMade + &quot; guessesMade&quot;);</span>
+	public static void concludeGame() {
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">		if (game.won()) {</span>
+<span class="fc" id="L84">			System.out.println(game.wordToGuess);</span>
+<span class="fc" id="L85">			System.out.println(&quot;Well done!&quot;);</span>
+<span class="fc" id="L86">			System.out.println(&quot;You took &quot; + game.guessesMade + &quot; guessesMade&quot;);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">		} else if(error) {</span>
+<span class="nc" id="L88">			System.out.println(&quot;Error loading the game&quot;);</span>
 		} else {
-<span class="nc" id="L98">			System.out.println(&quot;You lost! The wordToGuess was &quot; + game.wordToGuess);</span>
+<span class="nc" id="L90">			System.out.println(&quot;You lost! The wordToGuess was &quot; + game.wordToGuess);</span>
 		}
-<span class="nc" id="L100">	}</span>
+<span class="fc" id="L92">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

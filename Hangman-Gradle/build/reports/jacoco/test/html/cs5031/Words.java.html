@@ -2,53 +2,73 @@
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Random;
 
-//TODO Analyze this class to see what should be refactored
-<span class="nc" id="L7">public class Words {</span>
+<span class="nc" id="L9">public class Words {</span>
 
-<span class="nc" id="L9">	static String[] words1 = { &quot;Argyll and Bute&quot;, &quot;Caithness&quot;,  &quot;Kingdom of Fife&quot;,</span>
-			            &quot;East Lothian&quot;, &quot;Highland&quot;, &quot;Dumfries and Galloway&quot;,
-			            &quot;Renfrewshire&quot;, &quot;Scottish Borders&quot;, &quot;Perth and Kinross&quot; };
-<span class="nc" id="L12">	static String[] words2 = { &quot;Scotland&quot;, &quot;England&quot;, &quot;Wales&quot;, &quot;Northern Ireland&quot;, &quot;Ireland&quot;, </span>
+<span class="fc" id="L11">	public static String[] words1 = { &quot;Argyll and Bute&quot;, &quot;Caithness&quot;,  &quot;Kingdom of Fife&quot;,</span>
+			&quot;East Lothian&quot;, &quot;Highland&quot;, &quot;Dumfries and Galloway&quot;,
+			&quot;Renfrewshire&quot;, &quot;Scottish Borders&quot;, &quot;Perth and Kinross&quot; };
+<span class="fc" id="L14">	public static String[] words2 = { &quot;Scotland&quot;, &quot;England&quot;, &quot;Wales&quot;, &quot;Northern Ireland&quot;, &quot;Ireland&quot;,</span>
 			            &quot;France&quot;, &quot;Germany&quot;, &quot;Netherlands&quot;, &quot;Spain&quot;, &quot;Portugal&quot;,
 			            &quot;Belgium&quot;, &quot;Luxembourg&quot;, &quot;Switzerland&quot;, &quot;Italy&quot;, &quot;Greece&quot; };
-<span class="nc" id="L15">	static String[] words3 = { &quot;St Andrews&quot;, &quot;Edinburgh&quot;, &quot;Glasgow&quot;, &quot;Kirkcaldy&quot;, &quot;Perth&quot;,</span>
+<span class="fc" id="L17">	public static String[] words3 = { &quot;St Andrews&quot;, &quot;Edinburgh&quot;, &quot;Glasgow&quot;, &quot;Kirkcaldy&quot;, &quot;Perth&quot;,</span>
 			            &quot;Dundee&quot;, &quot;Stirling&quot;, &quot;Inverness&quot;, &quot;Aberdeen&quot;, &quot;Falkirk&quot; };
 			
-	static ArrayList&lt;String&gt; customwords;
+	public static ArrayList&lt;String&gt; customwords;
 	
 	public static String randomWord(int category) {
-<span class="nc bnc" id="L21" title="All 2 branches missed.">		if (category == 1) {</span>
-<span class="nc" id="L22">			return words1[(int) (Math.random() * 9)];</span>
+<span class="fc" id="L23">		HashSet&lt;String&gt; wordList = getSetOfWords(category);</span>
+<span class="fc" id="L24">		return randomize(wordList);</span>
+	}
+
+	public static HashSet&lt;String&gt; getSetOfWords(int category) {
+<span class="fc bfc" id="L28" title="All 2 branches covered.">		if (category == 1) {</span>
+<span class="fc" id="L29">			return new HashSet&lt;&gt;(Arrays.asList(words1));</span>
 		}
-<span class="nc bnc" id="L24" title="All 2 branches missed.">		if (category == 2) {</span>
-<span class="nc" id="L25">			return words2[(int) (Math.random() * 15)];</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">		if (category == 2) {</span>
+<span class="fc" id="L32">			return new HashSet&lt;&gt;(Arrays.asList(words2));</span>
 		}
 		else {
-<span class="nc" id="L28">			return words3[(int)(Math.random()*10)];</span>
+<span class="fc" id="L35">			return new HashSet&lt;&gt;(Arrays.asList(words3));</span>
 		}
+	}
+
+	private static String randomize(HashSet&lt;String&gt; wordList){
+<span class="fc" id="L40">		String chosen = &quot;&quot;;</span>
+<span class="fc" id="L41">		int size = wordList.size();</span>
+<span class="fc" id="L42">		int item = new Random().nextInt(size);</span>
+<span class="fc" id="L43">		int i = 0;</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">		for(String word : wordList) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">			if (i == item)</span>
+<span class="fc" id="L46">				chosen = word;</span>
+<span class="fc" id="L47">			i++;</span>
+<span class="fc" id="L48">		}</span>
+<span class="fc" id="L49">		return chosen;</span>
 	}
 	
 	public static String randomWord(String wordsource) {
-<span class="nc" id="L33">		customwords = new ArrayList&lt;String&gt;();</span>
-<span class="nc" id="L34">		return attemptToReadInWords(wordsource);</span>
+<span class="fc" id="L53">		customwords = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L54">		return attemptToReadInWords(wordsource);</span>
 	}
 
 	private static String attemptToReadInWords(String wordsource) {
 		try {
-<span class="nc" id="L39">			FileReader file = new FileReader(wordsource);</span>
-<span class="nc" id="L40">			BufferedReader reader = new BufferedReader(file);</span>
+<span class="fc" id="L59">			FileReader file = new FileReader(wordsource);</span>
+<span class="fc" id="L60">			BufferedReader reader = new BufferedReader(file);</span>
 			String line;
-<span class="nc bnc" id="L42" title="All 2 branches missed.">			while((line = reader.readLine()) != null) {</span>
-<span class="nc" id="L43">				customwords.add(line);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">			while((line = reader.readLine()) != null) {</span>
+<span class="fc" id="L63">				customwords.add(line);</span>
 			}
-<span class="nc" id="L45">			return customwords.get((int)(Math.random()*customwords.size()));</span>
-<span class="nc" id="L46">		} catch(FileNotFoundException e) {</span>
-<span class="nc" id="L47">			System.out.println(&quot;File error&quot;);</span>
-<span class="nc" id="L48">			return &quot;&quot;;</span>
-<span class="nc" id="L49">		} catch(IOException e) {</span>
-<span class="nc" id="L50">			System.out.println(&quot;IO error&quot;);</span>
-<span class="nc" id="L51">			return &quot;&quot;;</span>
+<span class="fc" id="L65">			return customwords.get((int)(Math.random()*customwords.size()));</span>
+<span class="fc" id="L66">		} catch(FileNotFoundException e) {</span>
+<span class="fc" id="L67">			System.out.println(&quot;File error&quot;);</span>
+<span class="fc" id="L68">			return &quot;&quot;;</span>
+<span class="nc" id="L69">		} catch(IOException e) {</span>
+<span class="nc" id="L70">			System.out.println(&quot;IO error&quot;);</span>
+<span class="nc" id="L71">			return &quot;&quot;;</span>
 		}
 	}
 }

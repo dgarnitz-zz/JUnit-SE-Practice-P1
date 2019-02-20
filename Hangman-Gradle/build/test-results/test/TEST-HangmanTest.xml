@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HangmanTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2019-02-20T16:16:29" hostname="pc5-031-l" time="0.016">
+  <properties/>
+  <testcase name="initiateGameWithAlternativePath" classname="HangmanTest" time="0.006"/>
+  <testcase name="initiateGameAfterWrongEntry" classname="HangmanTest" time="0.007"/>
+  <testcase name="winGame" classname="HangmanTest" time="0.001"/>
+  <testcase name="initiateGameNormal" classname="HangmanTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

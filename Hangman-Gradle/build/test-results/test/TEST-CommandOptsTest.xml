@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CommandOptsTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2019-02-20T12:54:38" hostname="pc5-031-l" time="0.018">
+<testsuite name="CommandOptsTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2019-02-20T16:16:29" hostname="pc5-031-l" time="0.009">
   <properties/>
-  <testcase name="optionsEmptyGuesses" classname="CommandOptsTest" time="0.002"/>
-  <testcase name="optionsSpacesHints" classname="CommandOptsTest" time="0.001"/>
+  <testcase name="optionsEmptyGuesses" classname="CommandOptsTest" time="0.001"/>
+  <testcase name="optionsSpacesHints" classname="CommandOptsTest" time="0.0"/>
   <testcase name="optionsSpacesGuesses" classname="CommandOptsTest" time="0.0"/>
-  <testcase name="optionsNoArgs" classname="CommandOptsTest" time="0.001"/>
+  <testcase name="optionsNoArgs" classname="CommandOptsTest" time="0.0"/>
   <testcase name="optionsNullArgs" classname="CommandOptsTest" time="0.0"/>
   <testcase name="optionsEmptyHints" classname="CommandOptsTest" time="0.0"/>
   <testcase name="optionsDefault" classname="CommandOptsTest" time="0.0"/>
   <testcase name="optionsIncorrectGuessesIndicator" classname="CommandOptsTest" time="0.002"/>
-  <testcase name="optionsNullHints" classname="CommandOptsTest" time="0.001"/>
+  <testcase name="optionsNullHints" classname="CommandOptsTest" time="0.0"/>
   <testcase name="optionsNullGuessesIndicator" classname="CommandOptsTest" time="0.001"/>
   <testcase name="optionsDirectoryInsteadOfFile" classname="CommandOptsTest" time="0.001"/>
-  <testcase name="optionsNullHintsAndGuesses" classname="CommandOptsTest" time="0.0"/>
+  <testcase name="optionsNullHintsAndGuesses" classname="CommandOptsTest" time="0.001"/>
   <testcase name="optionsNullGuesses" classname="CommandOptsTest" time="0.0"/>
-  <testcase name="optionsEmptyGuessesIndicator" classname="CommandOptsTest" time="0.0"/>
+  <testcase name="optionsEmptyGuessesIndicator" classname="CommandOptsTest" time="0.001"/>
   <testcase name="optionsIncorrectFilePath" classname="CommandOptsTest" time="0.001"/>
   <system-out><![CDATA[Please enter valid word source
 Please enter valid word source

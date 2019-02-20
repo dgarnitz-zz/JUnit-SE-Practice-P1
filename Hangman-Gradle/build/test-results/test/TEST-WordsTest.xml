@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="WordsTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2019-02-20T12:54:38" hostname="pc5-031-l" time="0.004">
+<testsuite name="WordsTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2019-02-20T16:16:29" hostname="pc5-031-l" time="0.008">
   <properties/>
-  <testcase name="randomWordOne" classname="WordsTest" time="0.002"/>
-  <testcase name="randomWordTwo" classname="WordsTest" time="0.0"/>
+  <testcase name="randomWordIOError" classname="WordsTest" time="0.004"/>
+  <testcase name="randomWordRealTXT" classname="WordsTest" time="0.001"/>
+  <testcase name="randomWordOne" classname="WordsTest" time="0.0"/>
+  <testcase name="randomWordTwo" classname="WordsTest" time="0.001"/>
   <testcase name="getSetOfWordsOne" classname="WordsTest" time="0.0"/>
   <testcase name="getSetOfWordsTwo" classname="WordsTest" time="0.0"/>
-  <testcase name="getSetOfWordsThree" classname="WordsTest" time="0.001"/>
+  <testcase name="getSetOfWordsThree" classname="WordsTest" time="0.0"/>
   <testcase name="randomWordThree" classname="WordsTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="randomWordRandomString" classname="WordsTest" time="0.001"/>
+  <system-out><![CDATA[File error
+File error
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

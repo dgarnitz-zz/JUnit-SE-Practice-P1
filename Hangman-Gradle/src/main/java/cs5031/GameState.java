@@ -12,8 +12,6 @@ public class GameState {
 	public ArrayList<Character> lettersSuccessfullyGuessed;
 	public ArrayList<Character> lettersNotGuessedYet;
 	
-	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
-	
 	public GameState(String target, int guessesMade, int hintsLeft) {
 		this.wordToGuess = target.toLowerCase();
 		lettersNotGuessedYet = new ArrayList<Character>();
@@ -36,7 +34,7 @@ public class GameState {
 	 * successfully guessed by the user. A dash is printed in place of any letter not yet guess by the user.
      * @param word a string containing the wordToGuess the user is trying to guess
      */
-	void showCurrentGameBoard(String word) { 		//TODO may want to consider refactoring this to make it more testable
+	void showCurrentGameBoard(String word) { 		//I chose to test this manually
 		for (int i = 0; i < word.length(); ++i) {
 			if (lettersSuccessfullyGuessed.contains(word.charAt(i)) && word.charAt(i) != ' ') {
 				System.out.print(word.charAt(i));
@@ -49,10 +47,11 @@ public class GameState {
 		System.out.println("");
 	}
 	
-	String guessLetter() { 							//TODO may want to consider refactoring this to make it more testable
+	String guessLetter(Scanner scan) {
 		System.out.print("Guess a letter or word to guess (? for a hint): ");
 
-		String str = sc.next();
+		scan.useDelimiter("\n");
+		String str = scan.next();
 
 		return processLetter(str);
 	}

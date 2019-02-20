@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Hangman {
 
-	private static Scanner scan;
-	private static GameState game;
+	public static Scanner scan;
+	public static GameState game;
 	public static CommandOpts opts;
 	private static Boolean error = false;
 
@@ -68,7 +68,7 @@ public class Hangman {
 
 			System.out.println("Guesses remaining: " + game.remainingGuesses);
 
-			String correct = game.guessLetter();
+			String correct = game.guessLetter(scan);
 			if(correct.equals("victory")) {
 				break;
 			}
@@ -81,6 +81,7 @@ public class Hangman {
 
 	public static void concludeGame() {
 		if (game.won()) {
+			System.out.println(game.wordToGuess);
 			System.out.println("Well done!");
 			System.out.println("You took " + game.guessesMade + " guessesMade");
 		} else if(error) {
