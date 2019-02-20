@@ -9,8 +9,8 @@ public class GameState {
 	public int remainingGuesses;
 	public int hintsLeft;
 	
-	ArrayList<Character> lettersSuccessfullyGuessed;
-	ArrayList<Character> lettersNotGuessedYet;
+	public ArrayList<Character> lettersSuccessfullyGuessed;
+	public ArrayList<Character> lettersNotGuessedYet;
 	
 	public Scanner sc = new Scanner(System.in).useDelimiter("\n");
 	

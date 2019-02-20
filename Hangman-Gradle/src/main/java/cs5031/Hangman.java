@@ -8,7 +8,7 @@ public class Hangman {
 
 	private static Scanner scan;
 	private static GameState game;
-	private static CommandOpts opts;
+	public static CommandOpts opts;
 	private static Boolean error = false;
 
 	/**
@@ -22,21 +22,15 @@ public class Hangman {
 
 		opts = new CommandOpts(args);
 
-		initiateGame();
+		game = initiateGame(scan);
 
 		playGame();
 
 		concludeGame();
 	}
 
-	/**
-	 * The initiateGame method handles the set up of the hangman game. It asks the users to pick between categories
-	 * then uses that input result along with previously configured options to instantiate a GameState object that
-	 * will be used to conduct the game play.
-	 */
-	static void initiateGame() {
-		if (opts.wordsource == "") {
-
+	public static GameState initiateGame(Scanner scanner) {
+		if (opts.wordsource.equals("")) {
 			int userChoice = 0;
 			do  {
 				System.out.println("  1. Counties");
@@ -46,15 +40,15 @@ public class Hangman {
 				System.out.print("Pick a category:");
 
 
-				if(scan.hasNext()){
-					userChoice = checkForMismatch(scan);
+				if(scanner.hasNext()){
+					userChoice = checkForMismatch(scanner);
 				}
 
 			} while(!(userChoice == 1 || userChoice == 2 || userChoice == 3));
 
-			game = new GameState(Words.randomWord(userChoice), opts.maxguesses, opts.maxhints);
+			return new GameState(Words.randomWord(userChoice), opts.maxguesses, opts.maxhints);
 		} else {
-			game = new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
+			return new GameState(Words.randomWord(opts.wordsource), opts.maxguesses, opts.maxhints);
 		}
 	}
 
@@ -67,12 +61,6 @@ public class Hangman {
 		}
 	}
 
-	/**
-	 * The playGame function uses a while loop to conduct the actual play of the hangman game. It first calls
-	 * showCurrentGameBoard to display the game board, then prompts the user to enter a letter. It then calls the
-	 * GameState object's guessLetter method to process the user input, return a boolean to represent whether the
-	 * user guessed correctly or not and outputs this to the console.
-	 */
 	static void playGame() {
 		if(game.wordToGuess.equals("")) { error = true; }
 		while (!game.won() && !game.lost()) {

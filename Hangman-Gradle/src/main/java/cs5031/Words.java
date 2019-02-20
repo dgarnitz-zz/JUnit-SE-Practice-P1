@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 
-//TODO Analyze this class to see what should be refactored
 public class Words {
 
 	public static String[] words1 = { "Argyll and Bute", "Caithness",  "Kingdom of Fife",
