@@ -117,4 +117,56 @@ public class HangmanTest {
         assertEquals(expectedOutput, outContent.toString());
 
     }
+
+    @Test
+    public void loseGame() {
+        byte[] bytes = "q\nt\ny\nu\ni\no\np\nd\nf\ng".getBytes();
+        ByteArrayInputStream is = new ByteArrayInputStream(bytes);
+        scan = new Scanner(is);
+        Hangman.scan = scan;
+
+        String[] path = new String[1];
+        path[0] = "/cs/home/dag8/Documents/SE-Practices/Hangman-Gradle/src/main/resources/test.txt";
+        options = new CommandOpts(path);
+        Hangman.opts = options;
+
+        Hangman.game = Hangman.initiateGame(scan);
+        Hangman.playGame();
+        Hangman.concludeGame();
+
+        String expectedOutput = "------\n" +
+                "Guesses remaining: 10\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "------\n" +
+                "Guesses remaining: 9\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "------\n" +
+                "Guesses remaining: 8\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "------\n" +
+                "Guesses remaining: 7\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "------\n" +
+                "Guesses remaining: 6\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "------\n" +
+                "Guesses remaining: 5\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "------\n" +
+                "Guesses remaining: 4\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "------\n" +
+                "Guesses remaining: 3\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "------\n" +
+                "Guesses remaining: 2\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "------\n" +
+                "Guesses remaining: 1\n" +
+                "Guess a letter or word to guess (? for a hint): Wrong guess!\n" +
+                "You lost! The wordToGuess was answer\n";
+
+        assertEquals(expectedOutput, outContent.toString());
+
+    }
 }

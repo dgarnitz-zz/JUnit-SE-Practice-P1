@@ -18,57 +18,76 @@ import java.util.Random;
 			            &quot;Dundee&quot;, &quot;Stirling&quot;, &quot;Inverness&quot;, &quot;Aberdeen&quot;, &quot;Falkirk&quot; };
 			
 	public static ArrayList&lt;String&gt; customwords;
-	
+
+	/**
+	 * This method takes an int, calls getSetOfWords to generate the list from that category, then calls the randomize
+	 * method to pick a random member from that category.
+	 * @param category int representing a word category the user has chose
+	 * @return
+	 */
 	public static String randomWord(int category) {
-<span class="fc" id="L23">		HashSet&lt;String&gt; wordList = getSetOfWords(category);</span>
-<span class="fc" id="L24">		return randomize(wordList);</span>
+<span class="fc" id="L29">		HashSet&lt;String&gt; wordList = getSetOfWords(category);</span>
+<span class="fc" id="L30">		return randomize(wordList);</span>
 	}
 
+	/**
+	 * This method takes an int representing a word category and returns a HashSet of the words in
+	 * that category. It could be private but was made public to facilitate the testing. The choice of a hashset was
+	 * also taken to facilitate the testing.
+	 * @param category int representing a word category the user has chose
+	 * @return a hash set containing the list of words from that category
+	 */
 	public static HashSet&lt;String&gt; getSetOfWords(int category) {
-<span class="fc bfc" id="L28" title="All 2 branches covered.">		if (category == 1) {</span>
-<span class="fc" id="L29">			return new HashSet&lt;&gt;(Arrays.asList(words1));</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">		if (category == 1) {</span>
+<span class="fc" id="L42">			return new HashSet&lt;&gt;(Arrays.asList(words1));</span>
 		}
-<span class="fc bfc" id="L31" title="All 2 branches covered.">		if (category == 2) {</span>
-<span class="fc" id="L32">			return new HashSet&lt;&gt;(Arrays.asList(words2));</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">		if (category == 2) {</span>
+<span class="fc" id="L45">			return new HashSet&lt;&gt;(Arrays.asList(words2));</span>
 		}
 		else {
-<span class="fc" id="L35">			return new HashSet&lt;&gt;(Arrays.asList(words3));</span>
+<span class="fc" id="L48">			return new HashSet&lt;&gt;(Arrays.asList(words3));</span>
 		}
 	}
 
 	private static String randomize(HashSet&lt;String&gt; wordList){
-<span class="fc" id="L40">		String chosen = &quot;&quot;;</span>
-<span class="fc" id="L41">		int size = wordList.size();</span>
-<span class="fc" id="L42">		int item = new Random().nextInt(size);</span>
-<span class="fc" id="L43">		int i = 0;</span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">		for(String word : wordList) {</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">			if (i == item)</span>
-<span class="fc" id="L46">				chosen = word;</span>
-<span class="fc" id="L47">			i++;</span>
-<span class="fc" id="L48">		}</span>
-<span class="fc" id="L49">		return chosen;</span>
+<span class="fc" id="L53">		String chosen = &quot;&quot;;</span>
+<span class="fc" id="L54">		int size = wordList.size();</span>
+<span class="fc" id="L55">		int item = new Random().nextInt(size);</span>
+<span class="fc" id="L56">		int i = 0;</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">		for(String word : wordList) {</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">			if (i == item)</span>
+<span class="fc" id="L59">				chosen = word;</span>
+<span class="fc" id="L60">			i++;</span>
+<span class="fc" id="L61">		}</span>
+<span class="fc" id="L62">		return chosen;</span>
 	}
-	
+
+	/**
+	 * This version of the randomWord method is used when the user uploads their own word source from which the game
+	 * will draw its words from.
+	 * @param wordsource a String containing a file path where the game should access a list of words
+	 * @return a String containing a word from that file path or an empty string from an error
+	 */
 	public static String randomWord(String wordsource) {
-<span class="fc" id="L53">		customwords = new ArrayList&lt;String&gt;();</span>
-<span class="fc" id="L54">		return attemptToReadInWords(wordsource);</span>
+<span class="fc" id="L72">		customwords = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L73">		return attemptToReadInWords(wordsource);</span>
 	}
 
 	private static String attemptToReadInWords(String wordsource) {
 		try {
-<span class="fc" id="L59">			FileReader file = new FileReader(wordsource);</span>
-<span class="fc" id="L60">			BufferedReader reader = new BufferedReader(file);</span>
+<span class="fc" id="L78">			FileReader file = new FileReader(wordsource);</span>
+<span class="fc" id="L79">			BufferedReader reader = new BufferedReader(file);</span>
 			String line;
-<span class="fc bfc" id="L62" title="All 2 branches covered.">			while((line = reader.readLine()) != null) {</span>
-<span class="fc" id="L63">				customwords.add(line);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">			while((line = reader.readLine()) != null) {</span>
+<span class="fc" id="L82">				customwords.add(line);</span>
 			}
-<span class="fc" id="L65">			return customwords.get((int)(Math.random()*customwords.size()));</span>
-<span class="fc" id="L66">		} catch(FileNotFoundException e) {</span>
-<span class="fc" id="L67">			System.out.println(&quot;File error&quot;);</span>
-<span class="fc" id="L68">			return &quot;&quot;;</span>
-<span class="nc" id="L69">		} catch(IOException e) {</span>
-<span class="nc" id="L70">			System.out.println(&quot;IO error&quot;);</span>
-<span class="nc" id="L71">			return &quot;&quot;;</span>
+<span class="fc" id="L84">			return customwords.get((int)(Math.random()*customwords.size()));</span>
+<span class="fc" id="L85">		} catch(FileNotFoundException e) {</span>
+<span class="fc" id="L86">			System.out.println(&quot;File error&quot;);</span>
+<span class="fc" id="L87">			return &quot;&quot;;</span>
+<span class="nc" id="L88">		} catch(IOException e) {</span>
+<span class="nc" id="L89">			System.out.println(&quot;IO error&quot;);</span>
+<span class="nc" id="L90">			return &quot;&quot;;</span>
 		}
 	}
 }

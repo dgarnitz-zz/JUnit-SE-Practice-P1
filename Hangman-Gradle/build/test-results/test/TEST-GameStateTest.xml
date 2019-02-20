@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="GameStateTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2019-02-20T17:55:23" hostname="pc5-031-l" time="0.007">
+<testsuite name="GameStateTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2019-02-20T19:58:07" hostname="pc5-031-l" time="0.007">
   <properties/>
-  <testcase name="processLetterRemainingLettersGuessCorrect" classname="GameStateTest" time="0.0"/>
-  <testcase name="processLetterEmpty" classname="GameStateTest" time="0.0"/>
+  <testcase name="processLetterRemainingLettersGuessCorrect" classname="GameStateTest" time="0.001"/>
+  <testcase name="processLetterEmpty" classname="GameStateTest" time="0.001"/>
   <testcase name="processLetterSpace" classname="GameStateTest" time="0.0"/>
   <testcase name="processLetterCorrectLetterCapitalized" classname="GameStateTest" time="0.0"/>
   <testcase name="processLetterFullWordGuessCapitalized" classname="GameStateTest" time="0.0"/>
   <testcase name="processLetterCorrectLetter" classname="GameStateTest" time="0.0"/>
   <testcase name="processLetterFullWordGuess" classname="GameStateTest" time="0.0"/>
   <testcase name="processLetterIncorrectLetter" classname="GameStateTest" time="0.0"/>
-  <testcase name="processLetterHint" classname="GameStateTest" time="0.005"/>
+  <testcase name="processLetterHint" classname="GameStateTest" time="0.004"/>
   <testcase name="processLetterNull" classname="GameStateTest" time="0.0"/>
-  <testcase name="processLetterIncorrectWord" classname="GameStateTest" time="0.001"/>
-  <system-out><![CDATA[Try: s
-Try: s
+  <testcase name="processLetterIncorrectWord" classname="GameStateTest" time="0.0"/>
+  <system-out><![CDATA[Try: t
+Try: t
 No more hints allowed
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

@@ -2,6 +2,12 @@
 
 import java.io.File;
 
+/**
+ * The CommandOpts class contains the game's main configuration options such as the maximum number of guesses and hints.
+ * It also track a word source, should one be supplied by the user. It uses a series of private methods that parse the
+ * command line input and decide how to configure the object. This method includes a considerable amount of error
+ * handling for the different faulty scenarios that can occur.
+ */
 public class CommandOpts {
 
 	public int maxguesses;
@@ -9,68 +15,68 @@ public class CommandOpts {
 
 	public String wordsource;
 
-<span class="fc" id="L12">	public CommandOpts(String[] args) {</span>
-<span class="fc" id="L13">		maxguesses = 10;</span>
-<span class="fc" id="L14">		maxhints = 2;</span>
+<span class="fc" id="L18">	public CommandOpts(String[] args) {</span>
+<span class="fc" id="L19">		maxguesses = 10;</span>
+<span class="fc" id="L20">		maxhints = 2;</span>
 		
-<span class="fc" id="L16">		wordsource = &quot;&quot;;</span>
+<span class="fc" id="L22">		wordsource = &quot;&quot;;</span>
 
-<span class="fc" id="L18">		processArguments(args);</span>
-<span class="fc" id="L19">	}</span>
+<span class="fc" id="L24">		processArguments(args);</span>
+<span class="fc" id="L25">	}</span>
 
-	public void processArguments(String[] args) {
-<span class="fc bfc" id="L22" title="All 2 branches covered.">		if(args == null) {</span>
-<span class="fc" id="L23">			return;</span>
+	private void processArguments(String[] args) {
+<span class="fc bfc" id="L28" title="All 2 branches covered.">		if(args == null) {</span>
+<span class="fc" id="L29">			return;</span>
 	}
-<span class="fc bfc" id="L25" title="All 2 branches covered.">		for(int i = 0; i &lt; args.length; ++i) {</span>
-<span class="fc bfc" id="L26" title="All 2 branches covered.">			if(args[i] == null) {</span>
-<span class="fc" id="L27">				continue;</span>
-<span class="fc bfc" id="L28" title="All 2 branches covered.">			} else if (args[i].equals(&quot;--guessesMade&quot;)) {</span>
-<span class="fc" id="L29">				maxguesses = parseGuess(args[i+1]);</span>
-<span class="fc" id="L30">				i++;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">		for(int i = 0; i &lt; args.length; ++i) {</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">			if(args[i] == null) {</span>
+<span class="fc" id="L33">				continue;</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">			} else if (args[i].equals(&quot;--guessesMade&quot;)) {</span>
+<span class="fc" id="L35">				maxguesses = parseGuess(args[i+1]);</span>
+<span class="fc" id="L36">				i++;</span>
 			}
-<span class="fc bfc" id="L32" title="All 2 branches covered.">			else if (args[i].equals(&quot;--hints&quot;)) {</span>
-<span class="fc" id="L33">				maxhints = parseHints(args[i+1]);</span>
-<span class="fc" id="L34">				i++;</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">			else if (args[i].equals(&quot;--hints&quot;)) {</span>
+<span class="fc" id="L39">				maxhints = parseHints(args[i+1]);</span>
+<span class="fc" id="L40">				i++;</span>
 			}
 			else {
-<span class="fc bfc" id="L37" title="All 2 branches covered.">				if(checkWordSource(args[i])) {</span>
-<span class="fc" id="L38">					wordsource = args[i];</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">				if(checkWordSource(args[i])) {</span>
+<span class="fc" id="L44">					wordsource = args[i];</span>
 				} else {
-<span class="fc" id="L40">					System.out.println(&quot;Please enter valid word source&quot;);</span>
+<span class="fc" id="L46">					System.out.println(&quot;Please enter valid word source&quot;);</span>
 				}
 			}
 		}
-<span class="fc" id="L44">	}</span>
+<span class="fc" id="L50">	}</span>
 
 	private Boolean checkWordSource(String source) {
-<span class="fc" id="L47">		File checkPath = new File(source);</span>
-<span class="fc bfc" id="L48" title="All 4 branches covered.">		if(checkPath.exists() &amp;&amp; !checkPath.isDirectory()) {</span>
-<span class="fc" id="L49">			return true;</span>
+<span class="fc" id="L53">		File checkPath = new File(source);</span>
+<span class="fc bfc" id="L54" title="All 4 branches covered.">		if(checkPath.exists() &amp;&amp; !checkPath.isDirectory()) {</span>
+<span class="fc" id="L55">			return true;</span>
 		}
-<span class="fc" id="L51">		return false;</span>
+<span class="fc" id="L57">		return false;</span>
 	}
 
 	private int parseGuess(String arg) {
-<span class="fc bfc" id="L55" title="All 2 branches covered.">		if(arg != null) {</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">		if(arg != null) {</span>
 			try {
-<span class="fc" id="L57">				return Integer.parseInt(arg);</span>
-<span class="fc" id="L58">			} catch (NumberFormatException e) {</span>
-<span class="fc" id="L59">				return maxguesses;</span>
+<span class="fc" id="L63">				return Integer.parseInt(arg);</span>
+<span class="fc" id="L64">			} catch (NumberFormatException e) {</span>
+<span class="fc" id="L65">				return maxguesses;</span>
 			}
 		}
-<span class="fc" id="L62">		return maxguesses;</span>
+<span class="fc" id="L68">		return maxguesses;</span>
 	}
 
 	private int parseHints(String arg) {
-<span class="fc bfc" id="L66" title="All 2 branches covered.">		if(arg != null) {</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">		if(arg != null) {</span>
 			try {
-<span class="fc" id="L68">				return Integer.parseInt(arg);</span>
-<span class="fc" id="L69">			} catch (NumberFormatException e) {</span>
-<span class="fc" id="L70">				return maxhints;</span>
+<span class="fc" id="L74">				return Integer.parseInt(arg);</span>
+<span class="fc" id="L75">			} catch (NumberFormatException e) {</span>
+<span class="fc" id="L76">				return maxhints;</span>
 			}
 		}
-<span class="fc" id="L73">		return maxhints;</span>
+<span class="fc" id="L79">		return maxhints;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
