@@ -11,7 +11,15 @@ public class GameState {
 	
 	public ArrayList<Character> lettersSuccessfullyGuessed;
 	public ArrayList<Character> lettersNotGuessedYet;
-	
+
+	/**
+	 * The constructor method for the GameState object. It takes a string containing the word/phrase to guess and
+	 * converts it to lower case letters so the game is capitalization ambiguous. It then loads all the invdividual
+	 * letters of the target into a char arraylist that is used to check if the user's guesses are correct.
+	 * @param target a String with the word or phrase to guess
+	 * @param guessesMade the number of guesses to be made
+	 * @param hintsLeft the number of hints to be allowed
+	 */
 	public GameState(String target, int guessesMade, int hintsLeft) {
 		this.wordToGuess = target.toLowerCase();
 		lettersNotGuessedYet = new ArrayList<Character>();

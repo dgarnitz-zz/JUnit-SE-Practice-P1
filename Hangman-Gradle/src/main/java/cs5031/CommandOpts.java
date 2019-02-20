@@ -5,7 +5,8 @@ import java.io.File;
 /**
  * The CommandOpts class contains the game's main configuration options such as the maximum number of guesses and hints.
  * It also track a word source, should one be supplied by the user. It uses a series of private methods that parse the
- * command line input and decide how to configure the object. This methods include error handling for faulty scenarios.
+ * command line input and decide how to configure the object. This method includes a considerable amount of error
+ * handling for the different faulty scenarios that can occur.
  */
 public class CommandOpts {
 
