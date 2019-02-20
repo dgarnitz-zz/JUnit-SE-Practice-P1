@@ -3,5 +3,5 @@ language: java
 install: true
 
 script:
-  -gradle test
-  -gradle build
+  - gradle test
+  - gradle build

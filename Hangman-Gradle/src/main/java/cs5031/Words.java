@@ -2,31 +2,52 @@ package cs5031;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Random;
 
 //TODO Analyze this class to see what should be refactored
 public class Words {
 
-	static String[] words1 = { "Argyll and Bute", "Caithness",  "Kingdom of Fife",
-			            "East Lothian", "Highland", "Dumfries and Galloway",
-			            "Renfrewshire", "Scottish Borders", "Perth and Kinross" };
-	static String[] words2 = { "Scotland", "England", "Wales", "Northern Ireland", "Ireland", 
+	public static String[] words1 = { "Argyll and Bute", "Caithness",  "Kingdom of Fife",
+			"East Lothian", "Highland", "Dumfries and Galloway",
+			"Renfrewshire", "Scottish Borders", "Perth and Kinross" };
+	public static String[] words2 = { "Scotland", "England", "Wales", "Northern Ireland", "Ireland",
 			            "France", "Germany", "Netherlands", "Spain", "Portugal",
 			            "Belgium", "Luxembourg", "Switzerland", "Italy", "Greece" };
-	static String[] words3 = { "St Andrews", "Edinburgh", "Glasgow", "Kirkcaldy", "Perth",
+	public static String[] words3 = { "St Andrews", "Edinburgh", "Glasgow", "Kirkcaldy", "Perth",
 			            "Dundee", "Stirling", "Inverness", "Aberdeen", "Falkirk" };
 			
-	static ArrayList<String> customwords;
+	public static ArrayList<String> customwords;
 	
 	public static String randomWord(int category) {
+		HashSet<String> wordList = getSetOfWords(category);
+		return randomize(wordList);
+	}
+
+	public static HashSet<String> getSetOfWords(int category) {
 		if (category == 1) {
-			return words1[(int) (Math.random() * 9)];
+			return new HashSet<>(Arrays.asList(words1));
 		}
 		if (category == 2) {
-			return words2[(int) (Math.random() * 15)];
+			return new HashSet<>(Arrays.asList(words2));
 		}
 		else {
-			return words3[(int)(Math.random()*10)];
+			return new HashSet<>(Arrays.asList(words3));
 		}
+	}
+
+	private static String randomize(HashSet<String> wordList){
+		String chosen = "";
+		int size = wordList.size();
+		int item = new Random().nextInt(size);
+		int i = 0;
+		for(String word : wordList) {
+			if (i == item)
+				chosen = word;
+			i++;
+		}
+		return chosen;
 	}
 	
 	public static String randomWord(String wordsource) {

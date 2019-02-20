@@ -9,6 +9,7 @@ public class Hangman {
 	private static Scanner scan;
 	private static GameState game;
 	private static CommandOpts opts;
+	private static Boolean error = false;
 
 	/**
 	 * The main method of Hangman game. It first creates a scanner to read the user input from the console that will
@@ -74,19 +75,20 @@ public class Hangman {
 	 * user guessed correctly or not and outputs this to the console.
 	 */
 	static void playGame() {
+		if(game.wordToGuess.equals("")) { error = true; }
 		while (!game.won() && !game.lost()) {
 			game.showCurrentGameBoard(game.wordToGuess);
 
 			System.out.println("Guesses remaining: " + game.remainingGuesses);
 
 			String correct = game.guessLetter();
-			if(correct == "victory") {
+			if(correct.equals("victory")) {
 				break;
 			}
 
-			if (correct == "correct") System.out.println("Good guess!");
-			if (correct == "incorrect") System.out.println("Wrong guess!");
-			if (correct == "error") System.out.println("Error with guess. Please enter it again");
+			if (correct.equals("correct")) System.out.println("Good guess!");
+			if (correct.equals("incorrect")) System.out.println("Wrong guess!");
+			if (correct.equals("error")) System.out.println("Error with guess. Please enter it again");
 		}
 	}
 
@@ -94,6 +96,8 @@ public class Hangman {
 		if (game.won()) {
 			System.out.println("Well done!");
 			System.out.println("You took " + game.guessesMade + " guessesMade");
+		} else if(error) {
+			System.out.println("Error loading the game");
 		} else {
 			System.out.println("You lost! The wordToGuess was " + game.wordToGuess);
 		}
