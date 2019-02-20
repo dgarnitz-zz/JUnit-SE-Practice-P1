@@ -61,7 +61,7 @@ public class Hangman {
 		}
 	}
 
-	static void playGame() {
+	public static void playGame() {
 		if(game.wordToGuess.equals("")) { error = true; }
 		while (!game.won() && !game.lost()) {
 			game.showCurrentGameBoard(game.wordToGuess);
@@ -79,7 +79,7 @@ public class Hangman {
 		}
 	}
 
-	static void concludeGame() {
+	public static void concludeGame() {
 		if (game.won()) {
 			System.out.println("Well done!");
 			System.out.println("You took " + game.guessesMade + " guessesMade");

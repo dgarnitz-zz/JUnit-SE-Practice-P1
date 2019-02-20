@@ -66,6 +66,25 @@ public class HangmanTest {
         HashSet<String> wordList = Words.getSetOfWords(2);
         List<String> result = wordList.stream().map(String::toLowerCase).collect(Collectors.toList());
 
-        assertTrue(result.contains(game.wordToGuess));
+        assertTrue(result.contains(game.wordToGuess)); //Check if the word chosen is in the countries category inside Words.java
+    }
+
+    @Test
+    public void winGame() {
+        byte[] bytes = "1\n".getBytes();
+        ByteArrayInputStream is = new ByteArrayInputStream(bytes);
+        scan = new Scanner(is);
+
+        String[] path = new String[1];
+        path[0] = "/cs/home/dag8/Documents/SE-Practices/Hangman-Gradle/src/main/resources/test.txt";
+        options = new CommandOpts(path);
+        Hangman.opts = options;
+
+        GameState game = Hangman.initiateGame(scan);
+    }
+
+    @Test
+    public void loseGame() {
+
     }
 }

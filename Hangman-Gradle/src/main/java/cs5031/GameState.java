@@ -112,7 +112,7 @@ public class GameState {
 		return false;
 	}
 
-	boolean won() { 						//TODO may want to consider refactoring this to make it more testable
+	boolean won() {
 		if (lettersNotGuessedYet.size() == 0) return true; else return false;
 	}
 
@@ -123,7 +123,7 @@ public class GameState {
 	/**
 	 * The hint method offers the user a hint if the user has any hints remaining.
 	 */
-	void hint() { 							//TODO may want to consider refactoring this to make it more testable
+	private void hint() {
 		if (hintsLeft == 0) {
 			System.out.println("No more hints allowed");
 		} else {
