@@ -51,5 +51,19 @@ public class WordsTest {
         assertTrue(actual.contains(word));
     }
 
+    @Test
+    public void randomWordRealTXT() {
+        assertEquals("answer", Words.randomWord("/cs/home/dag8/Documents/SE-Practices/Hangman-Gradle/src/main/resources/test.txt"));
+    }
+
+    @Test
+    public void randomWordRandomString() {
+        assertEquals("", Words.randomWord("abcdefg"));
+    }
+
+    @Test
+    public void randomWordIOError() {
+        assertEquals("", Words.randomWord("/cs/home/dag8/Documents/David.txt"));
+    }
 
 }

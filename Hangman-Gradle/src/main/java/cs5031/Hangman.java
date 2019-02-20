@@ -35,7 +35,6 @@ public class Hangman {
 	 * will be used to conduct the game play.
 	 */
 	static void initiateGame() {
-
 		if (opts.wordsource == "") {
 
 			int userChoice = 0;
